@@ -17,7 +17,7 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: your_password
           POSTGRES_DB: social_rails_test
         options: >-
           --health-cmd="pg_isready -U postgres"
