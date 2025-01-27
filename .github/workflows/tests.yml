@@ -1,0 +1,51 @@
+name: Ruby Tests
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: social_rails_test
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.6
+          bundler-cache: true
+
+      - name: Install Dependencies
+        run: bundle install
+
+      - name: Set Up Database
+        env:
+          RAILS_ENV: test
+        run: |
+          cp config/database.yml.example config/database.yml
+          bin/rails db:create db:schema:load
+
+      - name: Run Tests
+        env:
+          RAILS_ENV: test
+        run: bin/rails test
