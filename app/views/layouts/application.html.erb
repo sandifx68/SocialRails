@@ -5,12 +5,51 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
   </head>
 
   <body>
+    <% if flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= flash[:notice] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
       <a class="navbar-brand ps-3 text-light" href="/">Social Rails</a>
+
+      <!-- Toggle button for mobile navigation -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <%# Login/Logout buttons %>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <% if session[:user_id] %>
+            <li class="nav-item">
+              <%= link_to "Logout", logout_path, method: :delete, class: "nav-link text-light" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login", login_path, class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign Up", new_user_path, class: "nav-link text-light" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </nav>
     <%= yield %>
   </body>
