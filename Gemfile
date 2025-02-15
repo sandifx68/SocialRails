@@ -39,7 +39,7 @@ gem "thruster", require: false
 
 gem "bootstrap", "~> 5.3.3"
 gem "popper_js", "~> 2.11.8"
-gem "sassc-rails"
+gem "dartsass-sprockets"
 
 
 group :development, :test do
