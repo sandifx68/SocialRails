@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "User Sign Up", type: :request do
+  let!(:user) { User.create(user_id: "test", display_name: "TestUser", password: "securepass", password_confirmation: "securepass") }
+
   it "creates a new user with valid details" do
     post users_path, params: { user: { user_id: "olasmg", display_name: "Ola Smigaj", password: "securepass", password_confirmation: "securepass" } }
 
@@ -8,6 +10,12 @@ RSpec.describe "User Sign Up", type: :request do
     follow_redirect!
 
     expect(response.body).to include("Account created successfully!")
+  end
+
+  it "reject user with already existing display name" do
+    post users_path, params: { user: { user_id: "test", display_name: "Ola Smigaj", password: "securepass", password_confirmation: "securepass" } }
+
+    expect(CGI.unescapeHTML(response.body)).to include("User has already been taken")
   end
 
   it "rejects a new user with different confirmation password" do
