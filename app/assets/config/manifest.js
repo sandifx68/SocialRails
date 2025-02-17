@@ -2,7 +2,6 @@
 //= link application.css
 //= link application.scss
 //= link_tree ../images
-//= link_tree ../builds
 //= link_tree ../stylesheets .css
 //= link_tree ../stylesheets .scss
 //= link_tree ../javascripts .js
