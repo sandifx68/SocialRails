@@ -44,7 +44,12 @@ jobs:
         run: |
           bin/rails db:create db:schema:load
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+
       - name: Run Tests
         env:
           RAILS_ENV: test
-        run: bin/rails test
+        run: bin/rails spec

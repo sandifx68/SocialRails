@@ -1,0 +1,11 @@
+@import "bootstrap";
+@import "posts";
+
+.alert {
+  margin-bottom: 0; /* Remove default bottom margin */
+  padding: 10px 15px; /* Adjust padding for better spacing */
+}
+
+.brand-image {
+  border-radius: 50%
+}

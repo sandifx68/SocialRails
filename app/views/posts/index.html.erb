@@ -1,0 +1,23 @@
+<div class = "scrollable-post-list mt-3">
+    <% @posts.each do |post| %>
+        <div class = "card mb-3">
+            <div class = "card-body">
+                <!-- Profile Image and display name -->
+                <div class="d-flex align-items-center mb-3">
+                    <%= image_tag "default_pfp.jpg", class: "profile-image" %>
+                    <span class="ms-2 username"><%= post.user.display_name%></span>
+                    <span class="ms-auto me-3 text-secondary" 
+                        <% if post.created_at != post.updated_at %>
+                            title="<%= post.formatted_timestamp_hover %>"
+                        <% end %> >
+                        <%= post.formatted_timestamp_primary %>
+                    </span>
+                </div>
+
+                <!-- Image and description-->
+                <%= image_tag "default_post.jpg", class: "post-image" %>
+                <p class="post-description"><%= post.description %></p>
+            </div>
+        </div>
+    <% end %>
+</div>

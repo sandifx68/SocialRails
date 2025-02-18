@@ -1,0 +1,36 @@
+.scrollable-post-list {
+    // max-height: 500px; /* Adjust height as needed */
+    width: 40%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+    /* Centering */
+    margin: 0 auto; /* Centers the div horizontally */
+    display: block; /* Ensures it's treated as a block element */
+  }
+
+  .post-image {
+    width: 100%; /* Make image responsive */
+    max-height: 500px;
+    object-fit: cover; /* Crop image to fit */
+    border-radius: 8px;
+  }
+
+  .profile-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Ensures the image is cropped */
+    border-radius: 50%; /* Makes it a perfect circle */
+    border: 2px solid #ddd;
+  }
+
+  .post-description {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #555; /* Softer text color */
+    line-height: 1.5; /* Improve readability */
+    margin-top: 10px;
+}
+  
+  
