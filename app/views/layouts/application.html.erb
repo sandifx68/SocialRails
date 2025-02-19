@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <% if flash[:notice] %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <%= flash[:notice] %>
@@ -57,6 +57,7 @@
         </ul>
       </div>
     </nav>
+
     <%= yield %>
   </body>
 </html>
