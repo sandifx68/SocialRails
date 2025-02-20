@@ -4,8 +4,8 @@
     <title><%= content_for(:title) || "Social Rails" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
     <%= javascript_include_tag  "turbo" ,type: "module" %>
     <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
@@ -43,8 +43,26 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <% if session[:user_id] %>
-            <li class="nav-item">
-              <%= link_to "Logout", logout_path, data: { turbo: true, turbo_method: :delete }, class: "nav-link text-dark" %>
+            <li class="nav-item d-flex align-items-center me-3">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle bg-light text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= User.find(session[:user_id]).display_name %>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end text-dark" aria-labelledby="dropdownMenuButton">
+                  <li class="dropdown-item"> 
+                    <%= link_to "View Profile", user_path(session[:user_id]), class: "nav-link text-dark" %>
+                  </li>
+                  <li class="dropdown-item">
+                    <%= link_to "Modify Profile", edit_user_path(session[:user_id]), class: "nav-link text-dark" %>
+                  </li>
+                  <li class="dropdown-item">
+                    <%= link_to "Logout", logout_path, data: { turbo: true, turbo_method: :delete }, class: "nav-link text-dark" %>
+                  </li> 
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item me-3">
+              <%= image_tag "default_pfp.jpg", class: "profile-image" %>
             </li>
           <% else %>
             <li class="nav-item">

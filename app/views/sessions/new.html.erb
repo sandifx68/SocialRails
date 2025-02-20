@@ -12,13 +12,13 @@
 
     <!-- Signup Form Section -->
     <div style="max-width: 450px; width: 100%;">
-      <%= form_with(url: new_user_path, local: true, class: "needs-validation") do |form| %>
+      <%= form_with(url: login_path, local: true, class: "needs-validation") do |form| %>
         
         <%= form.text_field :user_id, class: "form-control mb-3", placeholder: "User ID" %>
         <%= form.password_field :password, class: "form-control mb-3", placeholder: "Password" %>
 
         <div class="d-grid">
-          <%= form.submit "Sign Up", class: "btn btn-danger fw-bold" %>
+          <%= form.submit "Log In", class: "btn btn-danger fw-bold" %>
         </div>
 
       <% end %>
