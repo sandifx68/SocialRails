@@ -15,5 +15,16 @@
       <h4><%= @user.display_name %></h4>
       <p><%= @user.description.presence || "This user has not added a bio yet." %></p>
     </div>
+
+    <h3 class="mt-4">Posts</h3>
+    <% if @user.posts.any? %>
+        <div class="scrollable-post-list mt-3" style="width: 60%;">
+            <% @user.recent_posts.each do |post| %>
+            <%= render "posts/post", post: post %>
+            <% end %>
+        </div>
+    <% else %>
+        <p class="text-center"> This user has no posts yet. </p>
+    <% end%>
   </div>
 </div>
