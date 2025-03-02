@@ -58,10 +58,10 @@ group :development do
   gem "web-console"
 end
 
-group :test do
+group :test, :development do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "rspec-rails", "~> 7.1"
+  gem "factory_bot_rails"
 end
-
-gem "rspec-rails", "~> 7.1"
