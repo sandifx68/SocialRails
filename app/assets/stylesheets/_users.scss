@@ -28,4 +28,13 @@
     object-fit: cover; /* Ensures image is cropped nicely if it’s not a perfect square */
     border-radius: 50%;
   }
+
+  .description {
+    cursor: pointer;
+    display: inline;
+  }
+
+  .description:hover {
+    text-decoration: underline;
+  }
   

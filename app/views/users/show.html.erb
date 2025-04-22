@@ -13,7 +13,13 @@
     
     <div class="mt-4">
       <h4><%= @user.display_name %></h4>
-      <p><%= @user.description.presence || "This user has not added a bio yet." %></p>
+      <% if current_user? %>
+        <p id="user-description" class="description">
+          <%= @user.description.presence || "Click to add a bio." %>
+        </p>
+      <% else %>
+        <p><%= @user.description.presence || "This user has not added a bio yet." %></p>
+      <% end %>
     </div>
 
     <h3 class="mt-4">Posts</h3>
