@@ -17,6 +17,21 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit_description
+    @user = User.find(params[:id])
+    render "users/edit_description"
+  end
+
+  def update_description
+    @user = User.find(params[:id])
+    # using method from application controller
+    if current_user? && @user.update(description: params[:user][:description])
+      redirect_to user_path(@user), notice: "Description updated!"
+    else
+      redirect_to user_path(@user), alert: "You are not authorized to do that."
+    end
+  end
+
   private
 
   def user_params

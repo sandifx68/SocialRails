@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <div class="mt-5 container h">
   <div class="card p-4 shadow-lg rounded-3 h-100">
     <div class="profile-header">
@@ -14,9 +15,11 @@
     <div class="mt-4">
       <h4><%= @user.display_name %></h4>
       <% if current_user? %>
-        <p id="user-description" class="description">
-          <%= @user.description.presence || "Click to add a bio." %>
-        </p>
+        <%= link_to @user.description.presence || "Click to add a bio.", 
+          edit_description_user_path(@user), 
+          data: { turbo_frame: "modal" },
+          class: "description" 
+        %>
       <% else %>
         <p><%= @user.description.presence || "This user has not added a bio yet." %></p>
       <% end %>

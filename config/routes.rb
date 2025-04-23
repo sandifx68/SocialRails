@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :users, only: [ :new, :create, :show, :edit, :update ]
+  resources :users, only: [ :new, :create, :show, :edit, :update ] do
+    member do
+      get :edit_description
+      patch :update_description
+    end
+  end
 
   root "posts#index"
   get "posts", to: "posts#index"

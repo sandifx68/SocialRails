@@ -32,6 +32,8 @@
   .description {
     cursor: pointer;
     display: inline;
+    color: inherit; 
+    text-decoration: none;
   }
 
   .description:hover {
