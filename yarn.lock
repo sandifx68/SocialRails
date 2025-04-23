@@ -403,7 +403,7 @@ emoji-regex@^8.0.0:
 
 esbuild@^0.25.3:
   version "0.25.3"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.25.3.tgz"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.25.3.tgz#371f7cb41283e5b2191a96047a7a89562965a285"
   integrity sha512-qKA6Pvai73+M2FtftpNKRxJ78GIjmFXFxd/1DVBqGo/qNhLSfv+G12n9pNoWdytJC8U00TrViOwpjT0zgqQS8Q==
   optionalDependencies:
     "@esbuild/aix-ppc64" "0.25.3"
