@@ -4,9 +4,7 @@
     <title><%= content_for(:title) || "Social Rails" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
     <%= javascript_include_tag  "turbo" ,type: "module" %>
     <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
   </head>
