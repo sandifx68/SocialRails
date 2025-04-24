@@ -1,11 +1,12 @@
 <%= turbo_frame_tag "modal" do %>
-  <div class="modal fade show d-block">
+  <div class="modal fade show d-block modal-backdrop-custom">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <div class="modal-header">
           <h5 class="modal-title"><%= modal_title || "Modal Title" %></h5>
-          <%= link_to "", "#", data: {turbo_frame: "_top"}, class: "btn-close"%>
+          <%# Workaround for the fact that i am reredering on an error %>
+          <%= link_to "", "#", data: {turbo_frame: "_top"}, class: "btn-close", onclick: "document.getElementById('modal')?.remove();"%>
         </div>
 
         <div class="modal-body">

@@ -11,3 +11,19 @@
 .brand-image {
 border-radius: 50%
 }
+
+.modal-backdrop-custom {
+  background-color: rgba(0, 0, 0, 0.5); /* dims the page */
+}
+
+.modal-backdrop-custom {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+

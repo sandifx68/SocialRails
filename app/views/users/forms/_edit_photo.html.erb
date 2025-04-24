@@ -2,6 +2,11 @@
   <div class="mb-3">
     <%= form.label field, class: "form-label" %>
     <%= form.file_field field, accept: "image/*", class: "form-control" %>
+    <% if user.errors.full_messages.any? %>
+      <div class="text-danger mt-1 small">
+        <%= user.errors.full_messages.first %>
+      </div>
+    <% end %>
   </div>
 
   <%= form.submit "Save", class: "btn btn-primary" %>

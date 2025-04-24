@@ -4,7 +4,7 @@
     <div class="profile-header">
         <!-- Background container -->
         <% if @user.background_image.attached? %>
-          <div class="background-photo" style="background-image: url(<%= @user.background_image %>);">
+          <div class="background-photo" style="background-image: url('<%= url_for(@user.background_image) %>');">
         <% else %>
           <div class="background-photo" style="background-image: url(<%= asset_path('default_bg.jpg') %>);">
         <% end %>
