@@ -2,7 +2,7 @@
     <div class = "card-body">
         <!-- Profile Image and display name -->
         <div class="d-flex align-items-center mb-3">
-            <%= image_tag "default_pfp.jpg", class: "profile-image" %>
+            <%= render "shared/profile_photo", user: post.user, profile_photo_class: "profile-photo-small" %>
             <span class="ms-2 username"><%= post.user.display_name%></span>
             <span class="ms-auto me-3 text-secondary" 
                 <% if post.created_at != post.updated_at %>

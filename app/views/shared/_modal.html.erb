@@ -1,0 +1,18 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="modal fade show d-block">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <div class="modal-header">
+          <h5 class="modal-title"><%= modal_title || "Modal Title" %></h5>
+          <%= link_to "", "#", data: {turbo_frame: "_top"}, class: "btn-close"%>
+        </div>
+
+        <div class="modal-body">
+          <%= modal_body %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

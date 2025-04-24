@@ -3,20 +3,33 @@
   <div class="card p-4 shadow-lg rounded-3 h-100">
     <div class="profile-header">
         <!-- Background container -->
-        <div class="background-photo" style="background-image: url(<%= asset_path('default_bg.jpg') %>);">
+        <% if @user.background_image.attached? %>
+          <div class="background-photo" style="background-image: url(<%= @user.background_image %>);">
+        <% else %>
+          <div class="background-photo" style="background-image: url(<%= asset_path('default_bg.jpg') %>);">
+        <% end %>
           <% if current_user? %>
             <div class="dim-overlay"></div>
-            <div class="hover-text">Edit background</div>
+            <%= link_to "Edit Background Image", 
+              edit_background_image_user_path(@user),
+              data: { turbo_frame: "modal"},
+              class: "hover-text"
+            %>
           <% end %>
         </div>
         
         <!-- Profile Photo Container -->
         <div class="profile-photo-wrapper">
             <% if current_user? %>
-              <%= image_tag("default_pfp.jpg", class: "profile-photo profile-photo-editable") %>
-              <div class="hover-text">Edit Profile</div>
+              <%= render "shared/profile_photo", user: @user, profile_photo_class: "profile-photo profile-photo-editable" %>
+
+              <%= link_to "Edit Profile Photo", 
+                edit_photo_user_path(@user),
+                data: { turbo_frame: "modal"},
+                class: "hover-text"
+              %>
             <% else %>
-              <%= image_tag("default_pfp.jpg", class: "profile-photo") %>
+              <%= render "shared/profile_photo", user: @user, profile_photo_class: "profile-photo" %>
             <% end%>
         </div>
     </div>

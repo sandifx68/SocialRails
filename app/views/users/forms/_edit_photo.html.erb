@@ -1,0 +1,8 @@
+<%= form_with(model: user, url: upload_path, local: true, html: { multipart: true }) do |form| %>
+  <div class="mb-3">
+    <%= form.label field, class: "form-label" %>
+    <%= form.file_field field, accept: "image/*", class: "form-control" %>
+  </div>
+
+  <%= form.submit "Save", class: "btn btn-primary" %>
+<% end %>

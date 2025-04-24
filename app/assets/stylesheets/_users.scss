@@ -17,7 +17,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none; /* So hover still registers on image */
+  pointer-events: auto;
 }
   
 .background-photo {
@@ -65,9 +65,10 @@
   border-radius: 50%;
   transition: filter 0.3s ease;
   cursor: pointer;
+  pointer-events: none; /* So the image doesn't block interaction */
 }
 
-.profile-photo-editable:hover {
+.profile-photo-wrapper:hover .profile-photo-editable {
   filter: brightness(50%);
 }
 

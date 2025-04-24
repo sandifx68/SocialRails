@@ -1,0 +1,5 @@
+<% if user.profile_photo.attached? %>
+    <%= image_tag user.profile_photo, class: profile_photo_class %>
+<% else %>
+    <%= image_tag "default_pfp.jpg", class: profile_photo_class %>
+<% end %>

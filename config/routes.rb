@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     member do
       get :edit_description
       patch :update_description
+      get :edit_photo
+      patch :update_photo
+      get :edit_background_image
+      patch :update_background_image
     end
   end
 

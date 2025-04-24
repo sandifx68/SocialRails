@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :posts
+  has_one_attached :profile_photo
+  has_one_attached :background_image
   has_secure_password
 
   validates :password, length: { minimum: 6 }, allow_nil: true
