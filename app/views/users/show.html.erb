@@ -35,7 +35,16 @@
     </div>
     
     <div class="mt-4">
-      <h4><%= @user.display_name %></h4>
+      <% if current_user %>
+        <%= link_to @user.display_name, 
+          edit_display_name_user_path(@user), 
+          data: { turbo_frame: "modal" },
+          class: "display_name display_name_editable" 
+        %>
+      <% else %>
+        <p class="display_name "><%= @user.display_name %></p>
+      <% end %>
+      <h5 class="text-secondary">@<%= @user.user_id %></h5>
       <% if current_user? %>
         <%= link_to @user.description.presence || "Click to add a bio.", 
           edit_description_user_path(@user), 

@@ -87,3 +87,19 @@
 .description:hover {
   text-decoration: underline;
 }
+
+.display_name {
+  font-weight: bold;     
+  font-size: 1.5rem;     
+}
+
+.display_name_editable {
+  cursor: pointer;       
+  color: inherit;        
+  text-decoration: none;
+}
+
+.display_name_editable:hover {
+  text-decoration: underline;
+}
+

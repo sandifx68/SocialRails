@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       patch :update_photo
       get :edit_background_image
       patch :update_background_image
+      get :edit_display_name
+      patch :update_display_name
     end
   end
 

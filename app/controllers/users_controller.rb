@@ -17,13 +17,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit_display_name
+    @user = User.find(params[:id])
+    render_partial("Edit Display Name", :display_name, update_display_name_user_path(@user), "text")
+  end
+
+  def update_display_name
+    @user = User.find(params[:id])
+    if current_user? && @user.update(display_name: params[:user][:display_name])
+      redirect_to user_path(@user), notice: "Display Name updated!"
+    else
+      redirect_to user_path(@user), alert: "You are not authorized to do that."
+    end
+  end
+
   def edit_description
     @user = User.find(params[:id])
-
-    render partial: "shared/modal", locals: {
-      modal_title: "Edit Description",
-      modal_body: render_to_string(partial: "users/forms/edit_description", locals: { user: @user })
-    }
+    render_partial("Edit Description", :description, update_description_user_path(@user), "text")
   end
 
   def update_description
@@ -38,7 +48,7 @@ class UsersController < ApplicationController
 
   def edit_photo
     @user = User.find(params[:id])
-    render_photo_partial("Edit Profile Photo", :profile_photo, update_photo_user_path(@user))
+    render_partial("Edit Profile Photo", :profile_photo, update_photo_user_path(@user), "photo")
   end
 
   def update_photo
@@ -49,7 +59,7 @@ class UsersController < ApplicationController
 
   def edit_background_image
     @user = User.find(params[:id])
-    render_photo_partial("Edit Background Image", :background_image, update_background_image_user_path(@user))
+    render_partial("Edit Background Image", :background_image, update_background_image_user_path(@user), "photo")
   end
 
   def update_background_image
@@ -59,18 +69,18 @@ class UsersController < ApplicationController
 
   private
 
-  def render_photo_partial(title, field, upload_path)
+  def render_partial(title, field, update_path, type)
     render partial: "shared/modal", locals: {
       modal_title: title,
-      modal_body: render_to_string(partial: "users/forms/edit_photo", locals: {
+      modal_body: render_to_string(partial: "users/forms/edit_#{type}", locals: {
         user: @user,
         field: field,
-        upload_path: upload_path
+        update_path: update_path
       })
     }
   end
 
-  def validate_and_update_image(field, notice, modal_title, upload_path)
+  def validate_and_update_image(field, notice, modal_title, update_path)
     unless current_user?
       return redirect_to user_path(@user), alert: "You are not authorized to do that."
     end
@@ -80,11 +90,11 @@ class UsersController < ApplicationController
       if @user.update(field => params[:user][field])
         redirect_to user_path(@user), notice: notice
       else
-        render_photo_partial(modal_title, field, upload_path)
+        render_partial(modal_title, field, update_path, "photo")
       end
     else # No file submitted
       @user.errors.add(field, "must be selected before uploading")
-      render_photo_partial(modal_title, field, upload_path)
+      render_partial(modal_title, field, update_path, "photo")
     end
   end
 
