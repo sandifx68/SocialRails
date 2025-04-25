@@ -25,7 +25,6 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  cursor: pointer;
 }
 
 .dim-overlay {
@@ -37,7 +36,7 @@
   background-color: black;
   opacity: 0;
   transition: opacity 0.3s ease;
-  //z-index: 0;
+  cursor: pointer;
 }
 
 .background-photo:hover .dim-overlay {
@@ -90,7 +89,8 @@
 
 .display_name {
   font-weight: bold;     
-  font-size: 1.5rem;     
+  font-size: 1.5rem;
+  margin-bottom: 0;     
 }
 
 .display_name_editable {

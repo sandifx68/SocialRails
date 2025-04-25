@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   # Check whether the currently authentified user is also the
   # user in the view
   def current_user?(user = nil)
-    puts "test"
     user ||= @user  # Fallback to instance variable if not passed
     current_user && current_user == user
   end

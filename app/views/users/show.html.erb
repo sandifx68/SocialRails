@@ -13,7 +13,8 @@
             <%= link_to "Edit Background Image", 
               edit_background_image_user_path(@user),
               data: { turbo_frame: "modal"},
-              class: "hover-text"
+              class: "hover-text",
+              id: "edit-background-image-link"
             %>
           <% end %>
         </div>
@@ -26,7 +27,8 @@
               <%= link_to "Edit Profile Photo", 
                 edit_photo_user_path(@user),
                 data: { turbo_frame: "modal"},
-                class: "hover-text"
+                class: "hover-text",
+                id: "edit-profile-photo-link"
               %>
             <% else %>
               <%= render "shared/profile_photo", user: @user, profile_photo_class: "profile-photo" %>
@@ -35,11 +37,12 @@
     </div>
     
     <div class="mt-4">
-      <% if current_user %>
+      <% if current_user? %>
         <%= link_to @user.display_name, 
           edit_display_name_user_path(@user), 
           data: { turbo_frame: "modal" },
-          class: "display_name display_name_editable" 
+          class: "display_name display_name_editable",
+          id: "edit-display-name-link"
         %>
       <% else %>
         <p class="display_name "><%= @user.display_name %></p>
@@ -49,7 +52,8 @@
         <%= link_to @user.description.presence || "Click to add a bio.", 
           edit_description_user_path(@user), 
           data: { turbo_frame: "modal" },
-          class: "description" 
+          class: "description",
+          id: "edit-description-link"
         %>
       <% else %>
         <p><%= @user.description.presence || "This user has not added a bio yet." %></p>
