@@ -1,0 +1,11 @@
+john:
+  id: 1
+  user_id: "john_doe"
+  display_name: "John Doe"
+  description: "I am Jonh! I might have a crush on Jane."
+
+jane:
+  id: 2
+  user_id: "u456"
+  display_name: "jane_doe"
+  description: "I am Jane! I think I like John but I am afriad to tell him."

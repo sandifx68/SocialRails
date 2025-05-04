@@ -1,0 +1,29 @@
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+@import "posts";
+@import "users"; 
+
+.alert {
+    margin-bottom: 0; /* Remove default bottom margin */
+    padding: 10px 15px; /* Adjust padding for better spacing */
+  }
+  
+.brand-image {
+border-radius: 50%
+}
+
+.modal-backdrop-custom {
+  background-color: rgba(0, 0, 0, 0.5); /* dims the page */
+}
+
+.modal-backdrop-custom {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+

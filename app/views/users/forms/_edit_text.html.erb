@@ -1,0 +1,4 @@
+<%= form_with model: @user, url: update_path, method: :patch do |form| %>
+  <%= form.text_area field, class: "form-control" %>
+  <%= form.submit "Save", class: "btn btn-primary mt-2" %>
+<% end %>

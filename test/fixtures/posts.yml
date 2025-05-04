@@ -1,0 +1,9 @@
+post_one:
+  id: 1
+  user_id: 1
+  description: "First Post of John"
+  
+post_two:
+  id: 2
+  user_id: 2
+  description: "First Post of Jane"
