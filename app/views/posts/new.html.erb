@@ -1,0 +1,16 @@
+<div class="mt-5 container h">
+    <div class="card p-4 shadow-lg rounded-3 h-100">
+        <h2>Create New Post</h2>
+
+        <%= form_with model: @post, local: true do |form| %>
+            <div class="mb-3">
+                <%= form.label :description %>
+                <%= form.text_area :description, class: "form-control" %>
+            </div>
+
+            <%= render "image_preview", form: form, post: @post %>
+
+            <%= form.submit "Create Post", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>

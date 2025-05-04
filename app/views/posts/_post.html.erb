@@ -13,7 +13,16 @@
         </div>
 
         <!-- Image and description-->
-        <%= image_tag "default_post.jpg", class: "post-image" %>
+       <% if post.image.attached? %>
+            <div class="ratio ratio-16x9 mb-2">
+                <%= image_tag post.image, class: "post-image" %>
+            </div>
+        <% else %>
+            <div class="ratio ratio-16x9 mb-2">
+                <%= image_tag "default_post.jpg", class: "post-image" %>
+            </div>
+        <% end %>
+
         <p class="post-description"><%= post.description %></p>
     </div>
 </div>

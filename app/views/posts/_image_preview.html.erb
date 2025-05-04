@@ -1,0 +1,21 @@
+<div class="mb-3" data-controller="previews">
+    <%= form.label :image %>
+    <%= form.file_field :image,
+        direct_upload: true,
+        data: { previews_target: "input", action: "change->previews#preview" },
+        class: "form-control"
+    %>
+    <div class="mt-2 border rounded p-2 bg-light">
+        <div class="ratio ratio-16x9">
+            <% if post.image.attached? %>
+                <%= image_tag post.image, data: { previews_target: "preview" }, 
+                    class: "img-fluid object-fit-cover", style: "width: 100%; height: 100%;" 
+                %>
+            <% else %>
+                <%= image_tag "", data: { previews_target: "preview" }, 
+                    class: "img-fluid object-fit-cover", style: "width: 100%; height: 100%;" 
+                %>
+            <% end %>
+        </div>
+    </div>
+</div>
