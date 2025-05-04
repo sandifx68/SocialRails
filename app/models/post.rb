@@ -2,19 +2,24 @@ class Post < ApplicationRecord
   include ActionView::Helpers::DateHelper
 
   belongs_to :user
-  has_one_attached :image
+  has_many_attached :images
   validates :description, presence: true
   validate :image_presence  # custom validator
-  validate :image_size
+  validate :image_sizes
 
   def image_presence
-    errors.add(:image, "must be attached") unless image.attached?
+    errors.add(:images, "must be attached") unless images.attached?
+    if images.attached? && images.length > 5
+      errors.add(:images, "can't have more than 5 images")
+    end
   end
 
-  def image_size
-    if image.attached? && image.blob.byte_size > 5.megabytes
-      image.purge # remove the upload immediately
-      errors.add(:image, "Uploaded image is too large (max 5MB)")
+  def image_sizes
+    images.each do |image|
+      if image.blob.byte_size > 5.megabytes
+        image.purge # removes the offending upload
+        errors.add(:images, "Image '#{image.filename}' is too large (max 5MB)")
+      end
     end
   end
 

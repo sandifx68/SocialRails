@@ -2,25 +2,29 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="previews"
 export default class extends Controller {
-  static targets = ["input", "preview"]
-  connect() {
-    console.log("Oh hi there :3")
-  }
+  static targets = ["input", "previewContainer"]
 
   preview() {
-    let input = this.inputTarget;
-    let preview = this.previewTarget;
-    let file = input.files[0];
-    let reader = new FileReader();
+    const files = this.inputTarget.files
+    const container = this.previewContainerTarget
 
-    reader.onloadend = function () {
-      preview.src = reader.result;
-    };
+    container.innerHTML = ""
 
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = "";
-    }
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const img = document.createElement("img")
+        img.src = reader.result
+        img.classList.add("img-fluid", "object-fit-cover")
+        img.style.width = "100%"
+        img.style.maxHeight = "100%"
+
+        const wrapper = document.createElement("div")
+        wrapper.classList.add("ratio", "ratio-16x9", "mb-2")
+        wrapper.appendChild(img)
+        container.appendChild(wrapper)
+      }
+      reader.readAsDataURL(file)
+    })
   }
 }
