@@ -8,6 +8,8 @@ RSpec.describe "User Login", type: :request do
 
     expect(session[:user_id]).to eq(user.id)
     expect(response).to redirect_to(root_path)
+    follow_redirect!
+    expect(response.body).to include("TestUser")
   end
 
   it "fails login with incorrect password" do

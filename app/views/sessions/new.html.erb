@@ -1,15 +1,31 @@
-<%= form_with(url: login_path, local: true) do |form| %>
-  <div>
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
+<div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+  <div class="card p-4 shadow-lg rounded-3 d-flex flex-row justify-content-between align-items-center" style="max-width: 900px; width: 100%;">
 
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
+    <!-- Brand banner -->
+    <div class="d-flex justify-content-center align-items-center">
+      <%= image_tag "favicon.png", class: "me-2 rounded-3", width: "150", height: "150" %>
+      <div class="d-flex flex-column">  
+        <h2 class="fw-bold text-danger">Social Rails</h2>
+        <p class="text-muted">Welcome back!</p>
+      </div>
+    </div>
 
-  <div>
-    <%= form.submit "Log In" %>
+    <!-- Signup Form Section -->
+    <div style="max-width: 450px; width: 100%;">
+      <%= form_with(url: login_path, local: true, class: "needs-validation") do |form| %>
+        
+        <%= form.text_field :user_id, class: "form-control mb-3", placeholder: "User ID" %>
+        <%= form.password_field :password, class: "form-control mb-3", placeholder: "Password" %>
+
+        <div class="d-grid">
+          <%= form.submit "Log In", class: "btn btn-danger fw-bold" %>
+        </div>
+
+      <% end %>
+
+      <p class="text-center mt-3">
+        Don't have an account? <%= link_to "Sign up", new_user_path, class: "text-danger fw-bold" %>
+      </p>
+    </div>
   </div>
-<% end %>
+</div>

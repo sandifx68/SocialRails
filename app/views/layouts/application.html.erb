@@ -5,12 +5,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag  "turbo" ,type: "module" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <% if flash[:notice] %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <%= flash[:notice] %>
@@ -42,8 +42,26 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <% if session[:user_id] %>
-            <li class="nav-item">
-              <%= link_to "Logout", logout_path, method: :delete, class: "nav-link text-dark" %>
+            <li class="nav-item d-flex align-items-center me-3">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle bg-light text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= current_user.display_name %>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end text-dark" aria-labelledby="dropdownMenuButton">
+                  <li class="dropdown-item"> 
+                    <%= link_to "View Profile", user_path(session[:user_id]), class: "nav-link text-dark" %>
+                  </li>
+                  <li class="dropdown-item">
+                    <%= link_to "Modify Profile", edit_user_path(session[:user_id]), class: "nav-link text-dark" %>
+                  </li>
+                  <li class="dropdown-item">
+                    <%= link_to "Logout", logout_path, data: { turbo: true, turbo_method: :delete }, class: "nav-link text-dark" %>
+                  </li> 
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item me-3">
+              <%= render "shared/profile_photo", user: current_user, profile_photo_class: "profile-photo-small" %>
             </li>
           <% else %>
             <li class="nav-item">
@@ -56,6 +74,9 @@
         </ul>
       </div>
     </nav>
+
+    <%= turbo_frame_tag "modal" %>
+
     <%= yield %>
   </body>
 </html>

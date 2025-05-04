@@ -17,4 +17,9 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_path, notice: "Logged out!"
   end
+
+  def display_name
+    display_name = User.find_by(user_id: session[:user_id]).display_name
+    display_name || flash[:alert] = "Currently not logged in."
+  end
 end

@@ -1,5 +1,3 @@
-import "@popperjs/core"
-import "bootstrap"
-//= require jquery3
-//= require popper
-//= require bootstrap
+import "@hotwired/turbo-rails"
+import "./controllers"
+import * as bootstrap from "bootstrap"

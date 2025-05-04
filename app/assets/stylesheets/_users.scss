@@ -1,0 +1,105 @@
+.profile-header {
+    width: 100%;
+    height: 300px; 
+    position: relative;
+    //overflow: hidden; /* Ensures hidden overflow if the profile pic extends outside */
+}
+
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+  
+.background-photo {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.dim-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.background-photo:hover .dim-overlay {
+  opacity: 0.5;
+}
+
+.background-photo:hover .hover-text {
+  opacity: 1;
+}
+
+.profile-photo-wrapper {
+  position: absolute;
+  bottom: 0; /* Position it at the bottom-center of .profile-header */
+  left: 50%; /* left edge is centered*/
+  transform: translate(-50%, 50%); /* translate by half of the image backward and half downward*/  
+  border: 2px solid #292b2c;
+  border-radius: 50%;
+}
+
+.profile-photo {
+  /* Control the size of the profile image */
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* Ensures image is cropped nicely if it’s not a perfect square */
+  border-radius: 50%;
+  transition: filter 0.3s ease;
+  cursor: pointer;
+  pointer-events: none; /* So the image doesn't block interaction */
+}
+
+.profile-photo-wrapper:hover .profile-photo-editable {
+  filter: brightness(50%);
+}
+
+.profile-photo-wrapper:hover .hover-text {
+  opacity: 1;
+}
+
+
+.description {
+  cursor: pointer;
+  display: inline;
+  color: inherit; 
+  text-decoration: none;
+}
+
+.description:hover {
+  text-decoration: underline;
+}
+
+.display_name {
+  font-weight: bold;     
+  font-size: 1.5rem;
+  margin-bottom: 0;     
+}
+
+.display_name_editable {
+  cursor: pointer;       
+  color: inherit;        
+  text-decoration: none;
+}
+
+.display_name_editable:hover {
+  text-decoration: underline;
+}
+
