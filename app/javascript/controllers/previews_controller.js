@@ -10,11 +10,12 @@ export default class extends Controller {
 
     container.innerHTML = ""
 
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach((file,i) => {
       const reader = new FileReader()
       reader.onloadend = () => {
         const img = document.createElement("img")
         img.src = reader.result
+        img.id = "preview-image-" + i
         img.classList.add("img-fluid", "object-fit-cover")
         img.style.width = "100%"
         img.style.maxHeight = "100%"

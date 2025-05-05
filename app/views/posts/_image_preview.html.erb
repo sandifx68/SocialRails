@@ -14,9 +14,7 @@
     <div class="mt-2 border rounded p-2 bg-light">
         <div class="ratio ratio-16x9">
             <% if post.images.attached? %> <%# when editing %>
-                <%= image_tag post.images, data: { previews_target: "preview" }, 
-                    class: "img-fluid object-fit-cover", style: "width: 100%; height: 100%;" 
-                %>
+                <div>Placeholder</div>
             <% else %>
                 <div style="overflow-y: auto;" data-previews-target="previewContainer"></div>
             <% end %>
