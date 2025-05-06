@@ -18,7 +18,6 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = session[:user_id]  # assign the post to the logged-in user
-
     if @post.save
       redirect_to user_path(@post.user), notice: "Post created!"
     else

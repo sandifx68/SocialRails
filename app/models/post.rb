@@ -3,14 +3,14 @@ class Post < ApplicationRecord
 
   belongs_to :user
   has_many_attached :images
-  validates :description, presence: true
+  validates :description, presence: { message: "The description cannot be blank." }
   validate :image_presence  # custom validator
   validate :image_sizes
 
   def image_presence
-    errors.add(:images, "must be attached") unless images.attached?
+    errors.add(:images, "An image must be attached.") unless images.attached?
     if images.attached? && images.length > 5
-      errors.add(:images, "can't have more than 5 images")
+      errors.add(:images, "A post can't have more than 5 images.")
     end
   end
 
