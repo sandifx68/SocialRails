@@ -1,9 +1,9 @@
-<%# img_srcs and post_id given %>
-<div id="carouselPost<%=post_id%>" class="carousel slide" data-interval="false">
+<%# img_srcs and post given %>
+<div id="carouselPost<%=post.id%>" class="carousel slide" data-interval="false">
   <div class="carousel-indicators">
     <% img_srcs.each_with_index do |_,index| %>
         <button type="button" 
-            data-bs-target="#carouselPost<%=post_id%>"
+            data-bs-target="#carouselPost<%=post.id%>"
             data-bs-slide-to="<%= index %>"
             aria-label="Slide <%=index + 1%>" 
             class="<%= 'active' if index == 0 %>"
@@ -15,16 +15,18 @@
     <% img_srcs.each_with_index do |img,index| %>
         <div class="carousel-item <%= 'active' if index == 0 %>">
             <div class="ratio ratio-16x9 mb-2">
-                <%= image_tag img, class: "post-image" %>
+                <%= link_to post_path(post) do %>
+                  <%= image_tag img, class: "post-image" %>
+                <% end %>
             </div>
         </div>
     <% end %>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselPost<%=post_id%>" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselPost<%=post.id%>" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselPost<%=post_id%>" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselPost<%=post.id%>" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
