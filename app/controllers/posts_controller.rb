@@ -25,15 +25,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy_confirmation
+    @post = Post.find(params[:id])
+    render partial: "shared/modal", locals: {
+      modal_title: "Are you sure you want to delete this post?",
+      modal_body: render_to_string(partial: "shared/confirmation_modal_body", locals: { action: post_path(@post) })
+    }
+  end
+
   def destroy
     @post = Post.find(params[:id])
     if @post.user_id == session[:user_id]
-      render partial: "shared/modal", locals: {
-        modal_title: "Are you sure you want to delete this post?",
-        modal_body: ""
-      }
-      # @post.destroy
-      # redirect_to posts_path, notice: "Post was successfully deleted."
+      @post.destroy
+      redirect_to posts_path, notice: "Post successfully deleted!"
     else
       redirect_to posts_path, alert: "You are not authorized to delete this post."
     end
