@@ -1,0 +1,13 @@
+<% if post.images.attached? %>
+    <% if post.images.length > 1 %>
+        <%= render "shared/image_carousel", post: post, img_srcs: post.images %>
+    <% else %>
+        <div class="ratio ratio-16x9 mb-2">
+            <%= image_tag post.images.first, class: "post-image" %>
+        </div>
+    <% end %>
+<% else %>
+    <div class="ratio ratio-16x9 mb-2">
+        <%= image_tag "default_post.jpg", class: "post-image" %>
+    </div>
+<% end %>

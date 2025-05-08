@@ -9,11 +9,12 @@
   }
 
   .post-image {
-    width: 100%; /* Make image responsive */
-    max-height: 500px;
-    object-fit: cover; /* Crop image to fit */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crop to fill */
     border-radius: 8px;
   }
+  
 
   .profile-photo-small {
     width: 50px;
@@ -29,6 +30,11 @@
     color: #555; /* Softer text color */
     line-height: 1.5; /* Improve readability */
     margin-top: 10px;
+}
+
+.show-post-container {
+  width: 60%;
+  margin: 2rem auto;
 }
   
   

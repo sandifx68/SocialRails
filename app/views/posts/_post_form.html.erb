@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center">
+  <div class="card p-4 shadow-lg rounded-3" style="width: 48%;">
+    <h2><%= @post.persisted? ? "Edit Post" : "Create New Post" %></h2>
+
+    <%= form_with model: @post, local: true do |form| %>
+      <div class="mb-3">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: "form-control" %>
+        <% if @post.errors[:description].any? %>
+          <div class="text-danger mt-1 small">
+            <%= @post.errors[:description].first %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @post.persisted? %>
+        <%= render "posts/post_image_carousel", post: @post %>
+      <% else %>
+        <%= render "image_preview", form: form, post: @post %>
+      <% end %>
+
+      <div class="d-flex justify-content-between mt-3">
+        <%= link_to "Cancel", request.referer || root_path, class: "btn btn-secondary" %>
+        <%= form.submit @post.persisted? ? "Save changes" : "Create Post", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
