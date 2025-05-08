@@ -52,7 +52,7 @@
                     <%= link_to "View Profile", user_path(session[:user_id]), class: "nav-link text-dark" %>
                   </li>
                   <li class="dropdown-item">
-                    <%= link_to "Modify Profile", edit_user_path(session[:user_id]), class: "nav-link text-dark" %>
+                    <%= link_to "Create Post", new_post_path, class: "nav-link text-dark" %>
                   </li>
                   <li class="dropdown-item">
                     <%= link_to "Logout", logout_path, data: { turbo: true, turbo_method: :delete }, class: "nav-link text-dark" %>

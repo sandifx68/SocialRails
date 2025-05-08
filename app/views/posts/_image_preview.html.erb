@@ -1,0 +1,23 @@
+<div class="mb-3" data-controller="previews">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true, accept: "image/*",
+        direct_upload: true,
+        data: { previews_target: "input", action: "change->previews#preview" },
+        class: "form-control"
+    %>
+    <% if post.errors[:images].any? %>
+        <div class="text-danger mt-1 small">
+            <%= post.errors[:images].first %>
+        </div>
+    <% end %>
+    <p style="margin-bottom: 0;"> Preview: </p>
+    <div class="mt-2 border rounded p-2 bg-light">
+        <div class="ratio ratio-16x9">
+            <% if post.images.attached? %> <%# when editing %>
+                <div>Placeholder</div>
+            <% else %>
+                <div style="overflow-y: auto;" data-previews-target="previewContainer"></div>
+            <% end %>
+        </div>
+    </div>
+</div>

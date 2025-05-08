@@ -80,6 +80,8 @@ class UsersController < ApplicationController
     }
   end
 
+  # This is kinda bad - those validations should be done in the user model
+  # and this would be reduced to a simple if else
   def validate_and_update_image(field, notice, modal_title, update_path)
     unless current_user?
       return redirect_to user_path(@user), alert: "You are not authorized to do that."
