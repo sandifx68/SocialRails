@@ -6,4 +6,8 @@ module SessionHelpers
     click_button "Log In"
     expect(page).to have_text("successfully!")
   end
+
+  def image_path(filename)
+    Rails.root.join('app', 'assets', 'images', 'demo_images', filename)
+  end
 end
