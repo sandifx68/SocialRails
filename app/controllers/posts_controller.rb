@@ -25,6 +25,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
   def destroy_confirmation
     @post = Post.find(params[:id])
     render partial: "shared/modal", locals: {
@@ -37,9 +41,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user_id == session[:user_id]
       @post.destroy
-      redirect_to posts_path, notice: "Post successfully deleted!"
+      redirect_to request.referer || root_path, notice: "Post successfully deleted!"
     else
-      redirect_to posts_path, alert: "You are not authorized to delete this post."
+      redirect_to root_path, alert: "You are not authorized to delete this post."
     end
   end
 
