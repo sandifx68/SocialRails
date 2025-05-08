@@ -14,8 +14,6 @@ RSpec.describe "User show", type: :feature do
   end
 
   scenario "doesn't allow unlogged user to modify anything" do
-    # post login_path, params: { user_id: user.user_id, password: "password123" }
-    # follow_redirect!
     visit user_path(user)
 
     expect(page).to have_content(user.display_name)

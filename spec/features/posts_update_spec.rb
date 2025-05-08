@@ -33,9 +33,10 @@ RSpec.feature "Posts update", type: :feature do
     log_in_as(user)
 
     expect(page).to have_text post.description
-    click_button "..."
-    click_link "Delete post"
-    click_button "OK"
+    click_button "...", wait: 5
+    click_link "Delete post", wait: 5
+    page.save_screenshot('tmp/screenshot.png')
+    click_button "OK", visible: :all, wait: 5
 
     expect(page).not_to have_text post.description
   end
