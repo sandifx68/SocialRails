@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   validates :description, presence: { message: "The description cannot be blank." }
   validate :image_presence  # custom validator
   validate :image_sizes
+  before_update :update_last_edited
 
   def image_presence
     errors.add(:images, "An image must be attached.") unless images.attached?
@@ -25,10 +26,16 @@ class Post < ApplicationRecord
 
   def formatted_timestamp_primary
     time = time_ago_in_words(created_at) + " ago"
-    created_at == updated_at ? time : time + " (Edited)"
+    last_edited ? time + " (Edited)" : time
   end
 
   def formatted_timestamp_hover
     "Last modified: " + time_ago_in_words(updated_at) + " ago"
+  end
+
+  private
+
+  def update_last_edited
+    self.last_edited = Time.current
   end
 end

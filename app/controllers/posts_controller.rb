@@ -29,6 +29,21 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def update
+    @post = Post.find(params[:id])
+
+    unless current_user?(@post.user)
+      redirect_to root_path, alert: "You are not authorized to modify this post."
+      return
+    end
+
+    if @post.update(post_params)
+      redirect_to root_path, notice: "Post successfully updated!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy_confirmation
     @post = Post.find(params[:id])
     render partial: "shared/modal", locals: {
