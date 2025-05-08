@@ -60,7 +60,7 @@ RSpec.describe "User show", type: :feature do
     expected_src = ActionController::Base.helpers.asset_path("default_pfp.jpg")
     expect(img[:src]).to include(expected_src)
     click_link "edit-profile-photo-link"
-    attach_file "user_profile_photo", Rails.root.join('spec', 'fixtures', 'files', 'alt_pfp.jpg')
+    attach_file "user_profile_photo", image_path('alt_pfp.jpg')
     click_button "Save"
     img_new = page.find("img.profile-photo.profile-photo-editable")
     expect(img_new[:src]).to include("alt_pfp")
@@ -74,7 +74,7 @@ RSpec.describe "User show", type: :feature do
     expected_asset = ActionController::Base.helpers.asset_path("default_bg.jpg")
     expect(img).to include(expected_asset)
     click_link "edit-background-image-link"
-    attach_file "user_background_image", Rails.root.join('spec', 'fixtures', 'files', 'alt_bg.jpg')
+    attach_file "user_background_image", image_path('alt_bg.jpg')
     click_button "Save"
     img_new = page.find("div.background-photo")[:style]
     expect(img_new).to include("alt_bg")
@@ -88,7 +88,7 @@ RSpec.describe "User show", type: :feature do
     expected_src = ActionController::Base.helpers.asset_path("default_pfp.jpg")
     expect(img[:src]).to include(expected_src)
     click_link "edit-profile-photo-link"
-    attach_file "user_profile_photo", Rails.root.join('spec', 'fixtures', 'files', 'pfp_too_big.jpg')
+    attach_file "user_profile_photo", image_path('pfp_too_big.jpg')
     click_button "Save"
     expect(page).to have_content "Uploaded image is too large (max 5MB)"
   end
