@@ -7,6 +7,11 @@ module SessionHelpers
     expect(page).to have_text("successfully!")
   end
 
+  def log_out
+    page.find("#dropdownMenuButton").click
+    click_link "Logout"
+  end
+
   def image_path(filename)
     Rails.root.join('app', 'assets', 'images', 'demo_images', filename)
   end
