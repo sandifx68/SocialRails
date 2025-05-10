@@ -7,8 +7,8 @@
         <% end %>
 
         <div class="input-group">
-            <%= form.text_field :text, class: "form-control", placeholder: "Add comment..." %>
-            <button class="btn btn-outline-primary" type="submit">
+            <%= form.text_field :text, id: "comment-form", class: "form-control", placeholder: "Add comment..." %>
+            <button class="btn btn-outline-primary" id="post-comment-button" type="submit">
                 <i class="bi bi-send-fill"></i>
             </button>
         </div>

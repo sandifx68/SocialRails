@@ -3,21 +3,27 @@
     <section>
         <h3>Comments</h3>
 
-        <%= render "posts/comment_form" %>
+        <% if session[:user_id] %>
+            <%= render "posts/comment_form" %>
+        <% end %>
 
         <ul class="list-group mt-3">
             <% @post.comments.each do |comment| %>
-                <li class="list-group-item">
-                    <b><%=comment.user.display_name%></b>: <%= comment.text %>
-                    <button class="btn btn-light p-1" type="button" id="commentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        ...
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="commentDropdown">
-                        <li><%= link_to "View Profile", user_path(comment.user_id), class: "dropdown-item" %></li>
-                        <% if current_user?(comment.user) %>
-                            <li><%= link_to "Delete comment", post_comment_path(comment.post_id, comment.id), data: { turbo_method: :delete }, class: "dropdown-item text-danger" %></li>
-                        <% end %>
-                    </ul>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <span>
+                        <b><%=comment.user.display_name%></b>: <%= comment.text %>
+                    </span>
+                    <div class="dropdown">
+                        <button class="btn btn-light p-1" type="button" id="commentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="commentDropdown">
+                            <li><%= link_to "View Profile", user_path(comment.user_id), class: "dropdown-item" %></li>
+                            <% if current_user?(comment.user) %>
+                                <li><%= link_to "Delete comment", post_comment_path(comment.post_id, comment.id), data: { turbo_method: :delete }, class: "dropdown-item text-danger" %></li>
+                            <% end %>
+                        </ul>
+                    </div>
                 </li>
             <% end %>
         </ul>

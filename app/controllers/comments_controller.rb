@@ -13,7 +13,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    binding.irb
     @comment = Comment.find(params[:id])
     if current_user?(@comment.user)
       @comment.destroy

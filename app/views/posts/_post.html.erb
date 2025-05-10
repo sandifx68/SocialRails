@@ -31,5 +31,14 @@
         <%= render "posts/post_image_carousel", post: post %>
 
         <p class="post-description"><%= post.description %></p>
+
+        <div class="d-flex justify-content-around align-items-center border-top pt-1">
+            <div class="flex-fill text-center border-end">Like (<%=post.comments.count%>)</div>
+            <div class="flex-fill text-center">
+                <%= link_to post_path(post, anchor: "comment-form"), id: "post-comment-link", class: "btn btn-light w-100" do %>
+                    Comment (<%=post.comments.count%>)
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>

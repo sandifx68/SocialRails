@@ -20,4 +20,8 @@ Features:
  - SOON: users can add friends
  - SOON: friends can message eachother
 
+ Lessons learned:
+ - better to start with I18n from the start
+ - modals require a bit more understanding to work properly
+
  TODO: add video demonstration of each feature?
