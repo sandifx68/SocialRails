@@ -1,0 +1,11 @@
+<turbo-frame class="flex-fill text-center border-end" id="like-button-<%= post.id %>">
+    <% if like = post.likes.find_by(user: current_user) %>
+        <%= link_to post_like_path(post.id, like.id), data: { turbo_method: :delete }, id: "post-like", class: "btn btn-light w-100 active" do %>
+        Like (<%= post.likes.count %>)
+        <% end %>
+    <% else %>
+        <%= link_to post_likes_path(post.id), data: { turbo_method: :post }, id: "post-like", class: "btn btn-light w-100" do %>
+        Like (<%= post.likes.count %>)
+        <% end %>
+    <% end %>
+</turbo-frame>

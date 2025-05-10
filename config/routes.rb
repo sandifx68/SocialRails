@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   root "posts#index"
   get "posts", to: "posts#index"
   resources :posts do
+    resources :comments, only: [ :create, :destroy ]
+    resources :likes, only: [ :create, :destroy ]
     member do
       get :destroy_confirmation
     end
