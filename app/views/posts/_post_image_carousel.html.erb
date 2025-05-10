@@ -3,7 +3,9 @@
         <%= render "shared/image_carousel", post: post, img_srcs: post.images %>
     <% else %>
         <div class="ratio ratio-16x9 mb-2">
-            <%= image_tag post.images.first, class: "post-image" %>
+            <%= link_to post_path(post) do %>
+                <%= image_tag post.images.first, class: "post-image" %>
+            <% end %>
         </div>
     <% end %>
 <% else %>
