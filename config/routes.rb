@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       patch :update_display_name
     end
   end
+  get "search_users", to: "users#search"
+
 
   root "posts#index"
   get "posts", to: "posts#index"

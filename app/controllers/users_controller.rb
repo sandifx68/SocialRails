@@ -17,6 +17,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def search
+    if params[:query].present?
+      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%")
+      @friends = current_user.friends
+    else
+      @users = []
+      @friends = current_user.friends
+    end
+
+    respond_to do |format|
+      format.html { render partial: "users/search_results", locals: { users: @users, friends: @friends } }
+    end
+  end
+
   def edit_display_name
     @user = User.find(params[:id])
     render_partial("Edit Display Name", :display_name, update_display_name_user_path(@user), "text")

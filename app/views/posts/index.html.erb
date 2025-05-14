@@ -1,6 +1,10 @@
-<%= turbo_page_requires_reload %>
-<div class = "scrollable-post-list mt-3" style="width: 40%;">
-    <% @posts.each do |post| %>
-        <%= render "posts/post", post: post %>
-    <% end %>
+<div class="d-flex justify-content-between">
+    <div style="width: 30%;"> <%= render "friends/friends_list" %> </div>
+    <div class = "scrollable-post-list" style="width: 40%;">
+        <% @posts.each do |post| %>
+            <%= render "posts/post", post: post %>
+        <% end %>
+    </div>
+    <div style="width: 30%;"> <%= render "messages/message_list" %> </div>
 </div>
+

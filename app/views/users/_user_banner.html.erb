@@ -1,0 +1,10 @@
+<div class="d-flex">
+    <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
+                
+    <div>
+        <div class="ms-2 username"><%= user.display_name%></div>
+        <div class="ms-2 text-secondary fs-7" >
+            <small>@<%= user.user_id %></small>
+        </div>
+    </div>
+</div>
