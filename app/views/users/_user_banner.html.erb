@@ -1,8 +1,12 @@
-<div class="d-flex align-items-center">
+<%# Given: user and friend %>
+<turbo-frame id="searched-user-<%=user.user_id%>" class="d-flex align-items-center">
     <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
                 
     <div>
-        <div class="ms-2 username"><%= user.display_name%></div>
+        <%= link_to user_path(user), class: "ms-2 username text-decoration-none text-dark" do %>
+        <span class="hover-underline"><%= user.display_name %></span>
+        <% end %>
+
         <div class="ms-2 text-secondary fs-7" >
             <small>@<%= user.user_id %></small>
         </div>
@@ -20,13 +24,13 @@
                 </ul>
             </div>
         <% else %>
-            <% if current_user.invites.include? user %>
+            <% if current_user.friend_requests_sent.include? user %>
                 <%= link_to "Remove friendship invite", user_friend_path(current_user.id, user), data: {turbo_method: "delete"}, class: "text-danger" %>
-            <% elsif current_user.invites_received.include? user %>
+            <% elsif current_user.friend_requests_received.include? user %>
                 <%= link_to "Accept friendship", user_friend_path(current_user.id, user), data: {turbo_method: "patch"}%>
             <% else %>
                 <%= link_to "Add friend", user_friends_path(current_user.id, friend_id: user.id), data: { turbo_method: "post" }%>
             <% end %>
         <% end %>
     </div>
-</div>
+</turbo-frame>

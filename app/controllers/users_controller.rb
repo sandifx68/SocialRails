@@ -20,14 +20,16 @@ class UsersController < ApplicationController
   def search
     if params[:query].present?
       @friends = current_user.friends(params[:query])
-      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends
+      @friend_requests = current_user.friend_requests_received(params[:query])
+      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
     else
       @users = []
       @friends = current_user.friends
+      @friend_requests = current_user.friend_requests_received
     end
 
     respond_to do |format|
-      format.html { render partial: "users/search_results", locals: { users: @users, friends: @friends } }
+      format.html { render partial: "users/search_results", locals: { users: @users, friends: @friends, friend_requests: @friend_requests } }
     end
   end
 

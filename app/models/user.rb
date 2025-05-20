@@ -26,15 +26,17 @@ class User < ApplicationRecord
     SQL
   end
 
-  def invites
+  def friend_requests_sent
     Friendship.where(accepted: false).where("user_id = ?", id).map do |f|
       f.friend
     end
   end
 
-  def invites_received
+  def friend_requests_received(user_id_filter = "")
     Friendship.where(accepted: false).where("friend_id = ?", id).map do |f|
-      f.user
+      if f.user.user_id.downcase.include? user_id_filter.downcase
+        f.user
+      end
     end
   end
 

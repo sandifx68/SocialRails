@@ -6,7 +6,11 @@
         <% end %>
 
         <% if current_user %>            
-            <%= render partial: "users/search_results", locals: { users: @users || [], friends: @friends || current_user.friends } %>
+            <%= render partial: "users/search_results", locals: { 
+                users: @users || [], 
+                friends: @friends || current_user.friends,
+                friend_requests: @friend_requests || current_user.friend_requests_received
+            } %>
         <% else %>
             <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
                 Login to see your friends!
