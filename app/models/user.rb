@@ -12,12 +12,32 @@ class User < ApplicationRecord
   validates :user_id, presence: true, uniqueness: true
   validate :profile_photo_size
 
-  # Need to do this because there is only one friendship A -> B (and not B -> A as well)
-  def friends
-    Friendship.where(accepted: true).where("user_id = ? OR friend_id = ?", id, id).map do |f|
-      f.user_id == id ? f.friend : f.user
+  def friends(user_id_filter = "")
+    sanitized_filter = "%#{user_id_filter.downcase}%"
+
+    User.find_by_sql([ <<-SQL, id, sanitized_filter, id, sanitized_filter ])
+    SELECT users.*
+    FROM friendships
+    JOIN users ON (
+        (friendships.user_id = ? AND friendships.friend_id = users.id AND LOWER(users.user_id) LIKE ?) OR
+        (friendships.friend_id = ? AND friendships.user_id = users.id AND LOWER(users.user_id) LIKE ?)
+      )
+      WHERE friendships.accepted = TRUE
+    SQL
+  end
+
+  def invites
+    Friendship.where(accepted: false).where("user_id = ?", id).map do |f|
+      f.friend
     end
   end
+
+  def invites_received
+    Friendship.where(accepted: false).where("friend_id = ?", id).map do |f|
+      f.user
+    end
+  end
+
 
   def recent_posts(limit = 10)
     posts.order(created_at: :desc).limit(limit) # Fetches latest posts

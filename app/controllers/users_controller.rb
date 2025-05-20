@@ -19,8 +19,8 @@ class UsersController < ApplicationController
 
   def search
     if params[:query].present?
-      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%")
-      @friends = current_user.friends
+      @friends = current_user.friends(params[:query])
+      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends
     else
       @users = []
       @friends = current_user.friends

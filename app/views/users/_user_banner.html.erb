@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex align-items-center">
     <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
                 
     <div>
@@ -6,5 +6,27 @@
         <div class="ms-2 text-secondary fs-7" >
             <small>@<%= user.user_id %></small>
         </div>
+    </div>
+
+    <div class="ms-auto me-2">
+        <% if friend == true %>
+            <!-- Dropdown with remove friend -->
+            <div class="dropdown ms-auto me-2">
+                <button class="btn btn-light p-1" type="button" id="dropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    ...
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownButton">
+                    <li><%= link_to "Remove friend", user_friend_path(current_user.id, user.id) , data: {turbo_method: "delete"}, class: "dropdown-item text-danger" %></li>
+                </ul>
+            </div>
+        <% else %>
+            <% if current_user.invites.include? user %>
+                <%= link_to "Remove friendship invite", user_friend_path(current_user.id, user), data: {turbo_method: "delete"}, class: "text-danger" %>
+            <% elsif current_user.invites_received.include? user %>
+                <%= link_to "Accept friendship", user_friend_path(current_user.id, user), data: {turbo_method: "patch"}%>
+            <% else %>
+                <%= link_to "Add friend", user_friends_path(current_user.id, friend_id: user.id), data: { turbo_method: "post" }%>
+            <% end %>
+        <% end %>
     </div>
 </div>
