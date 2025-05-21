@@ -51,9 +51,7 @@
           <% end %>
           <h5 class="text-secondary">@<%= @user.user_id %></h5>
         </div>
-        <% unless current_user? %>
-          <%= render "user_friendship", user: @user %>
-        <% end %>
+        <%= render "user_friendship", user: @user %>
       </div>
       <% if current_user? %>
         <%= link_to @user.description.presence || "Click to add a bio.", 
