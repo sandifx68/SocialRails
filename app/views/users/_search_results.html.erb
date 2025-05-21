@@ -3,7 +3,7 @@
         <ul class="list-group">
             <% friends.each do |friend| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: friend, friend: true } %> 
+                    <%= render partial: "users/user_banner", locals: { user: friend } %> 
                 </li>
             <% end %>
         </ul>
@@ -13,7 +13,7 @@
         <ul class="list-group">
             <% users.each do |user| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: user, friend: false } %> 
+                    <%= render partial: "users/user_banner", locals: { user: user } %> 
                 </li>
             <% end %>
         </ul>
@@ -23,7 +23,7 @@
         <ul class="list-group">
             <% friend_requests.each do |user| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: user, friend: false } %> 
+                    <%= render partial: "users/user_banner", locals: { user: user } %> 
                 </li>
             <% end %>
         </ul>

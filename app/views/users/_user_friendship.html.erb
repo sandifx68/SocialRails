@@ -1,0 +1,13 @@
+<!-- Optional class for the button styling -->
+<% cls = "btn btn-light border" if local_assigns[:cls].nil? %>
+<turbo-frame id="friendship-status-<%=user.user_id%>" class="d-flex align-items-center">
+    <% if current_user.friends.include? user %>
+        <%= link_to "Remove friend", user_friend_path(current_user.id, user), data: { turbo_method: :delete }, class: "text-danger #{cls}" %> 
+    <% elsif current_user.friend_requests_sent.include? user %>
+        <%= link_to "Remove friendship invite", user_friend_path(current_user.id, user), data: {turbo_method: :delete}, class: "text-danger #{cls}" %>
+    <% elsif current_user.friend_requests_received.include? user %>
+        <%= link_to "Accept friendship", user_friend_path(current_user.id, user), data: {turbo_method: :patch}, class: cls %>
+    <% else %>
+        <%= link_to "Add friend", user_friends_path(current_user.id, friend_id: user.id), data: { turbo_method: :post }, class: cls %>
+    <% end %>
+</turbo-frame>

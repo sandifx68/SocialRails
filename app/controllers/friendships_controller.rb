@@ -1,9 +1,9 @@
 class FriendshipsController < ApplicationController
-  def turbo_respond(user_to_render, is_friend)
+  def turbo_respond(user_to_render)
     respond_to do |format|
       format.turbo_stream {
-        render turbo_stream: turbo_stream.replace("searched-user-#{user_to_render.user_id}",
-        partial: "users/user_banner", locals: { user: user_to_render, friend: is_friend })
+        render turbo_stream: turbo_stream.replace("friendship-status-#{user_to_render.user_id}",
+        partial: "users/user_friendship", locals: { user: user_to_render })
       }
       format.html { redirect_to root_path }
     end
@@ -14,7 +14,7 @@ class FriendshipsController < ApplicationController
     @friend = User.find(params[:friend_id])
     Friendship.create!(user: @user, friend: @friend, accepted: false)
 
-    turbo_respond @friend, false
+    turbo_respond @friend
   end
 
   # To accept friendship - only the person invited can accept the friendship
@@ -25,7 +25,7 @@ class FriendshipsController < ApplicationController
 
     if friendship
       friendship.update(accepted: true)
-      turbo_respond @friend, true
+      turbo_respond @friend
     end
   end
 
@@ -36,7 +36,7 @@ class FriendshipsController < ApplicationController
                  Friendship.find_by(user: @friend, friend: @user)
 
     friendship&.destroy
-    turbo_respond @friend, false
+    turbo_respond @friend
   end
 
   private
