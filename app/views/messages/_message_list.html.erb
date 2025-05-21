@@ -1,5 +1,22 @@
 <div style="height: 90vh">
-    <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
-        Login to see your messages!
-    </div>
+    <% if current_user && (friends = current_user.friends).any? %>
+        <ul class="list-group">
+            <% friends.each do |friend| %>
+                <%= link_to user_path(friend), class: "d-block" do %>
+                    <li class="list-group-item">
+                        <%= render partial: "users/user_banner", locals: { 
+                            user: friend, 
+                            secondary_text: "Hey!", 
+                            friendship_button: false,
+                            tertiary_text: "10:37" 
+                        } %> 
+                    </li>
+                <% end %>
+            <% end %>
+        </ul>
+    <% else %>
+        <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
+            Login to see your messages!
+        </div>
+    <% end %>
 </div>

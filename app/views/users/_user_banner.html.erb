@@ -1,18 +1,24 @@
-<%# Given: user and friend %>
+<%# Given: user and optionally friendship_button and secondary_text  %>
+<% friendship_button = true if local_assigns[:friendship_button].nil? %>
+<% secondary_text = "@#{user.user_id}" if local_assigns[:secondary_text].nil? %>
+<% tertiary_text = "" if local_assigns[:tertiary_text].nil? %>
 <div class="d-flex align-items-center">
     <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
                 
-    <div>
-        <%= link_to user_path(user), class: "ms-2 username text-decoration-none text-dark" do %>
-        <span class="hover-underline"><%= user.display_name %></span>
-        <% end %>
+    <div style="width:100%;">
+        <div class="d-flex">
+            <%= link_to user.display_name, user_path(user), class: "ms-2 display_name_editable" %>
+            <div class="ms-auto text-secondary me-2"><small><%= tertiary_text %></small></div>
+        </div>
 
         <div class="ms-2 text-secondary fs-7" >
-            <small>@<%= user.user_id %></small>
+            <small><%= secondary_text %></small>
         </div>
     </div>
 
-    <div class="ms-auto me-2">
-        <%= render "users/user_friendship", user: user %>
-    </div>
+    <% if friendship_button %>
+        <div class="ms-auto me-2">
+            <%= render "users/user_friendship", user: user %>
+        </div>
+    <% end %>
 </div>
