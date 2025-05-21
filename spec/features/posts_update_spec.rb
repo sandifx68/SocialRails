@@ -35,8 +35,8 @@ RSpec.feature "Posts update", type: :feature do
     expect(page).to have_text post.description
     click_button "...", wait: 5
     click_link "Delete post", wait: 5
-    page.save_screenshot('tmp/screenshot.png')
     click_button "OK", visible: :all, wait: 5
+    refresh
 
     expect(page).not_to have_text post.description
   end

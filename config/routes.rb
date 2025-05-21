@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :users, only: [ :new, :create, :show, :edit, :update ] do
+    resources :friends, only: [ :create, :destroy, :update ], controller: "friendships"
     member do
       get :edit_description
       patch :update_description
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
       patch :update_display_name
     end
   end
+  get "search_users", to: "users#search"
+
 
   root "posts#index"
   get "posts", to: "posts#index"
