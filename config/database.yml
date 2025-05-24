@@ -8,7 +8,11 @@ default: &default
 
 development:
   <<: *default
-  database: social_rails_development
+  database: <%= ENV['DATABASE'] || "social_rails_development" %>
+  username: <%= ENV['USERNAME'] || "postgres" %>
+  password: <%= ENV['PASSWORD'] || "your_password" %>
+  host: <%= ENV["HOST"] || "localhost" %>
+  port: <%= ENV["PORT"] || 5432 %>
 
 test:
   <<: *default
@@ -16,6 +20,8 @@ test:
 
 production:
   <<: *default
-  database: social_rails_production
-  username: sandi
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE'] || "social_rails_production" %>
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host: <%= ENV["HOST"] %>
+  port: <%= ENV["PORT"] %>

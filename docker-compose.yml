@@ -10,6 +10,26 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+  
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rails server -b 0.0.0.0 -p 3000
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+      HOST: db
+      PORT: 5432
+      USER: postgres
+      PASSWORD: your_password
+      DATABASE: social_rails_development
+      # RAILS_MASTER_KEY: <your-master-key> 
 
 volumes:
   pg_data:
