@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: social_rails_development
+      POSTGRES_DB: social_rails_production
     ports:
       - "5432:5432"
     volumes:
@@ -23,12 +23,12 @@ services:
     depends_on:
       - db
     environment:
-      RAILS_ENV: development
-      HOST: db
-      PORT: 5432
-      USER: postgres
-      PASSWORD: your_password
-      DATABASE: social_rails_development
+      # PG_RAILS_ENV: production
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USERNAME: postgres
+      PG_PASSWORD: your_password
+      PG_DATABASE: social_rails_production
       # RAILS_MASTER_KEY: <your-master-key> 
 
 volumes:
