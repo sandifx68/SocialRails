@@ -24,11 +24,13 @@ services:
       - db
     environment:
       # PG_RAILS_ENV: production
-      PG_HOST: db
-      PG_PORT: 5432
-      PG_USERNAME: postgres
-      PG_PASSWORD: your_password
-      PG_DATABASE: social_rails_production
+      # PG_HOST: db
+      # PG_PORT: 5432
+      # PG_USERNAME: postgres
+      # PG_PASSWORD: your_password
+      # PG_DATABASE: social_rails_production
+      PG_URL: postgresql://postgres:your_password@db:5432/social_rails_production
+
       # RAILS_MASTER_KEY: <your-master-key> 
 
 volumes:
