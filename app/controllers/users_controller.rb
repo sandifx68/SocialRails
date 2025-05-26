@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      if @user&.authenticate(user_params[:password])
+        session[:user_id] = @user.id
+      end
       redirect_to root_path, notice: "Account created successfully!"
     else
       flash.now[:alert] = @user.errors.full_messages.join(", ")
@@ -23,7 +26,7 @@ class UsersController < ApplicationController
       @friend_requests = current_user.friend_requests_received(params[:query])
       @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
     else
-      @users = []
+      @users = User.all - [ current_user ]
       @friends = current_user.friends
       @friend_requests = current_user.friend_requests_received
     end

@@ -6,7 +6,7 @@
         <div class="modal-header">
           <h5 class="modal-title"><%= modal_title || "Modal Title" %></h5>
           <%# Workaround for the fact that i am reredering on an error %>
-          <%= link_to "", "#", data: {turbo_frame: "_top"}, class: "btn-close", onclick: "document.getElementById('modal')?.innerHTML = '';"%>
+          <%= link_to "", "#", data: {turbo_frame: "_top"}, class: "btn-close", onclick: "document.getElementById('modal').innerHTML = '';"%>
         </div>
 
         <div class="modal-body">

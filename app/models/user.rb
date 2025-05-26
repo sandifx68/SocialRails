@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :password, length: { minimum: 6 }, allow_nil: true
+  validates :display_name, presence: true
   validates :user_id, presence: true, uniqueness: true
   validate :profile_photo_size
 

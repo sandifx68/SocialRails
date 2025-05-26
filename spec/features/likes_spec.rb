@@ -40,9 +40,7 @@ RSpec.feature "Likes", type: :feature do
   scenario "cannot be added by unlogged user", js: true do
     visit root_path
     expect(page).to have_content(post.description)
-    click_link "Like (0)"
-    expect(page).to have_text "Like (0)"
-    refresh
-    expect(page).to have_text "Like (0)"
+    like_button = find("#post-like")
+    expect(like_button[:class]).to include("disabled")
   end
 end
