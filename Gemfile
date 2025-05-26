@@ -70,3 +70,4 @@ gem "jsbundling-rails", "~> 1.3"
 
 gem "faker"
 gem "cloudinary"
+gem "kaminari"
