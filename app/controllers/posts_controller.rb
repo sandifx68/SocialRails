@@ -8,13 +8,27 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(5)
+    if current_user
+      @posts = Post
+        .joins(:user)
+        .where("posts.private = ? OR users.id = (?) OR users.id IN (?)", false, current_user.id, current_user.friends.pluck(:id))
+        .order(created_at: :desc)
+        .page(params[:page])
+        .per(5)
+    else
+      @posts = Post.where(private: false).order(created_at: :desc).page(params[:page]).per(5)
+    end
   end
 
 
   def show
-    @post = Post.find(params[:id])
-    @comment = Comment.new
+    post = Post.find(params[:id])
+    unless post[:private] && !post.user.is_friends_with(current_user)
+      @post = post
+      @comment = Comment.new
+    else
+      redirect_to root_path, alert: "You are not allowed to view this post."
+    end
   end
 
   def new

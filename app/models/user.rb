@@ -27,6 +27,10 @@ class User < ApplicationRecord
     SQL
   end
 
+  def is_friends_with(user)
+    self.friends.include?(user)
+  end
+
   def friend_requests_sent
     Friendship.where(accepted: false).where("user_id = ?", id).map do |f|
       f.friend
