@@ -23,14 +23,24 @@ class UsersController < ApplicationController
   def search
     page = params[:page] || 1
 
-    if params[:query].present?
-      @friends = current_user.friends(params[:query])
-      @friend_requests = current_user.friend_requests_received(params[:query])
-      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
+    if current_user.present?
+      if params[:query].present?
+        @friends = current_user.friends(params[:query])
+        @friend_requests = current_user.friend_requests_received(params[:query])
+        @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
+      else
+        @friends = current_user.friends
+        @friend_requests = current_user.friend_requests_received
+        @users = User.all - [ current_user ]
+      end
     else
-      @users = User.all - [ current_user ]
-      @friends = current_user.friends
-      @friend_requests = current_user.friend_requests_received
+      @friends = []
+      @friend_requests = []
+      @users = if params[:query].present?
+        User.where("user_id ILIKE ?", "%#{params[:query]}%")
+      else
+        User.all
+      end
     end
 
     @paginated_users = Kaminari.paginate_array(@users).page(page).per(5)
@@ -39,11 +49,19 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.turbo_stream {
         render partial: "users/search_results",
-               locals: { users: @paginated_users, friends: @paginated_friends, friend_requests: @friend_requests }
+               locals: {
+                 users: @paginated_users,
+                 friends: @paginated_friends,
+                 friend_requests: @friend_requests
+               }
       }
       format.html {
         render partial: "users/search_results",
-               locals: { users: @paginated_users, friends: @paginated_friends, friend_requests: @friend_requests }
+               locals: {
+                 users: @paginated_users,
+                 friends: @paginated_friends,
+                 friend_requests: @friend_requests
+               }
       }
     end
   end
