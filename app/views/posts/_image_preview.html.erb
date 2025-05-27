@@ -13,11 +13,7 @@
     <p style="margin-bottom: 0;"> Preview: </p>
     <div class="mt-2 border rounded p-2 bg-light">
         <div class="ratio ratio-16x9">
-            <% if post.images.attached? %> <%# when editing %>
-                <div>Placeholder</div>
-            <% else %>
-                <div style="overflow-y: auto;" data-previews-target="previewContainer"></div>
-            <% end %>
+            <div style="overflow-y: auto;" data-previews-target="previewContainer"></div>
         </div>
     </div>
 </div>

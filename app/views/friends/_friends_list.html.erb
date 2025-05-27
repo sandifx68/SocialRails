@@ -1,20 +1,19 @@
 <div class="card" style="height: 90vh;">
 
     <div class="card-body">
-        <%= form_with url: search_users_path, method: :get, local: false, data: { turbo_frame: "search-results" } do %>
-            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search or add friends..." %>
-        <% end %>
+            <%= form_with url: search_users_path, method: :get, local: false, data: { turbo_frame: "search-results" } do %>
+                <div class="input-group">
+                    <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search or add friends..." %>
+                    <button class="btn btn-outline-primary" id="search-users-button" type="submit">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </div>  
+            <% end %>
 
-        <% if current_user %>            
-            <%= render partial: "users/search_results", locals: { 
-                users: @users || [], 
-                friends: @friends || current_user.friends,
-                friend_requests: @friend_requests || current_user.friend_requests_received
-            } %>
-        <% else %>
-            <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
-                Login to see your friends!
-            </div>
-        <% end %>
+        <%= render partial: "users/search_results", locals: { 
+            users: @users || Kaminari.paginate_array(User.all - [ current_user ].compact).page(1).per(5), 
+            friends: @friends || Kaminari.paginate_array(current_user&.friends || []).page(1).per(5),
+            friend_requests: @friend_requests || current_user&.friend_requests_received || []
+        } %>
     </div>
 </div>

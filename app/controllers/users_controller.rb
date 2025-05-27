@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      if @user&.authenticate(user_params[:password])
+        session[:user_id] = @user.id
+      end
       redirect_to root_path, notice: "Account created successfully!"
     else
       flash.now[:alert] = @user.errors.full_messages.join(", ")
@@ -18,18 +21,48 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:query].present?
-      @friends = current_user.friends(params[:query])
-      @friend_requests = current_user.friend_requests_received(params[:query])
-      @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
+    page = params[:page] || 1
+
+    if current_user.present?
+      if params[:query].present?
+        @friends = current_user.friends(params[:query])
+        @friend_requests = current_user.friend_requests_received(params[:query])
+        @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
+      else
+        @friends = current_user.friends
+        @friend_requests = current_user.friend_requests_received
+        @users = User.all - [ current_user ]
+      end
     else
-      @users = []
-      @friends = current_user.friends
-      @friend_requests = current_user.friend_requests_received
+      @friends = []
+      @friend_requests = []
+      @users = if params[:query].present?
+        User.where("user_id ILIKE ?", "%#{params[:query]}%")
+      else
+        User.all
+      end
     end
 
+    @paginated_users = Kaminari.paginate_array(@users).page(page).per(5)
+    @paginated_friends = Kaminari.paginate_array(@friends).page(page).per(5)
+
     respond_to do |format|
-      format.html { render partial: "users/search_results", locals: { users: @users, friends: @friends, friend_requests: @friend_requests } }
+      format.turbo_stream {
+        render partial: "users/search_results",
+               locals: {
+                 users: @paginated_users,
+                 friends: @paginated_friends,
+                 friend_requests: @friend_requests
+               }
+      }
+      format.html {
+        render partial: "users/search_results",
+               locals: {
+                 users: @paginated_users,
+                 friends: @paginated_friends,
+                 friend_requests: @friend_requests
+               }
+      }
     end
   end
 

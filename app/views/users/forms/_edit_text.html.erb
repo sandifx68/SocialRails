@@ -1,4 +1,7 @@
 <%= form_with model: @user, url: update_path, method: :patch do |form| %>
   <%= form.text_area field, class: "form-control" %>
-  <%= form.submit "Save", class: "btn btn-primary mt-2" %>
+  <div class="d-flex justify-content-between gap-2 mt-3">
+    <%= button_tag "Cancel", type: "button", class: "btn btn-secondary", onclick: 'document.getElementById("modal").innerHTML = ""' %>
+    <%= form.submit "Save", class: "btn btn-primary mt-2" %>
+  </div>
 <% end %>

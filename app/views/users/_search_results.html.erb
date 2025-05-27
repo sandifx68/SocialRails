@@ -33,4 +33,14 @@
             No users found.
         </div>
     <% end %>
+
+    <% if users.respond_to?(:current_page) && users.next_page.present? %>
+        <div class="d-flex justify-content-center mt-3">
+            <%= link_to "Load more",
+                        search_users_path(query: params[:query], page: users.next_page),
+                        data: { turbo_frame: "search-results" },
+                        class: "btn btn-outline-primary" %>
+        </div>
+    <% end %>
+
 </turbo-frame>
