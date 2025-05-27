@@ -4,8 +4,9 @@
         Like (<%= post.likes.count %>)
         <% end %>
     <% else %>
-        <%= link_to post_likes_path(post.id), data: { turbo_method: :post }, id: "post-like", class: "btn btn-light w-100" do %>
-        Like (<%= post.likes.count %>)
+        <%= link_to post_likes_path(post.id), data: { turbo_method: :post }, id: "post-like", 
+            class: "btn btn-light w-100 #{'disabled' if current_user.nil?}", aria_disabled: current_user.nil? do %>
+            Like (<%= post.likes.count %>)
         <% end %>
     <% end %>
 </turbo-frame>

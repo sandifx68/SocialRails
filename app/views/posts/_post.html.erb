@@ -20,6 +20,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownButton">
                     <li><%= link_to "View Profile", user_path(post.user_id), class: "dropdown-item" %></li>
+                    <li><%= render "users/user_friendship", user: post.user, cls: "dropdown-item" %></li>  
                     <% if current_user?(post.user) %>
                         <li><%= link_to "Edit post", edit_post_path(post), class: "dropdown-item" %></li>
                         <li><%= link_to "Delete post", destroy_confirmation_post_path(post), data: {turbo_frame: "modal"}, class: "dropdown-item text-danger" %></li>
@@ -35,7 +36,8 @@
         <div class="d-flex justify-content-around align-items-center border-top pt-1">
             <%= render "posts/like_button", post: post %>
             <div class="flex-fill text-center">
-                <%= link_to post_path(post, anchor: "comment-form"), id: "post-comment-link", class: "btn btn-light w-100" do %>
+                <%= link_to post_path(post, anchor: "comment-form"), id: "post-comment-link", 
+                    class: "btn btn-light w-100 #{'disabled' if current_user.nil?}", aria_disabled: current_user.nil? do %>
                     Comment (<%=post.comments.count%>)
                 <% end %>
             </div>

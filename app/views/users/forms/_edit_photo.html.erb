@@ -9,5 +9,9 @@
     <% end %>
   </div>
 
-  <%= form.submit "Save", class: "btn btn-primary" %>
+  <div class="d-flex justify-content-between gap-2 mt-3">
+    <%= button_tag "Cancel", type: "button", class: "btn btn-secondary", onclick: 'document.getElementById("modal").innerHTML = ""' %>
+    <%= form.submit "Save", class: "btn btn-primary" %> 
+  </div>
+
 <% end %>

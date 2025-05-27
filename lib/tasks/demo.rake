@@ -49,14 +49,15 @@ namespace :demo do
 
       rand(0..MAX_POSTS).times do
         post = user.posts.build(
-          description: Faker::Lorem.words(number: rand(1..5)).join(" ")
+          description: Faker::Lorem.words(number: rand(1..5)).join(" "),
+          private: false
         )
 
         rand(1..MAX_PHOTOS_PER_POST).times do
           post.images.attach(random_image)
         end
         post.save!
-        puts "Created post with desc #{post.description}, having #{post.images.length} images."
+        puts "Created public post with desc #{post.description}, having #{post.images.length} images."
       end
     end
 

@@ -1,0 +1,18 @@
+<%# Given: user and friend %>
+<div class="d-flex align-items-center">
+    <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
+                
+    <div>
+        <%= link_to user_path(user), class: "ms-2 username text-decoration-none text-dark" do %>
+        <span class="hover-underline"><%= user.display_name %></span>
+        <% end %>
+
+        <div class="ms-2 text-secondary fs-7" >
+            <small>@<%= user.user_id %></small>
+        </div>
+    </div>
+
+    <div class="ms-auto me-2">
+        <%= render "users/user_friendship", user: user %>
+    </div>
+</div>
