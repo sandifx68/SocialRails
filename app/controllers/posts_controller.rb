@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
   def show
     post = Post.find(params[:id])
-    unless post[:private] && !post.user.is_friends_with(current_user)
+    unless post[:private] && !current_user?(post.user) && !post.user.is_friends_with(current_user)
       @post = post
       @comment = Comment.new
     else
