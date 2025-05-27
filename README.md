@@ -1,6 +1,6 @@
-# README
-
-This is a social media clone built on Ruby on Rails. It is publicly accessible [here](social-rails-sandi.online). Video demo [here]().
+# This is a social media clone built on Ruby on Rails. 
+## It is publicly accessible [here](https://social-rails-sandi.online/). 
+## Video demo [here](https://youtu.be/blunVrgT-Zk).
 
 Development details:
  - pipeline with capybara tests and rubocop linting
