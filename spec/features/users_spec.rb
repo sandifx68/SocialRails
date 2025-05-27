@@ -109,6 +109,6 @@ RSpec.describe "User show", type: :feature do
     visit user_path(other_user)
 
     expect(page).to have_content(other_user.display_name)
-    expect(page).to have_content("This user has no posts yet.")
+    expect(page).to have_content("This user does not have any (public) posts yet.")
   end
 end

@@ -26,6 +26,16 @@ class Post < ApplicationRecord
     end
   end
 
+  def self.visible_to(viewer, author)
+    if viewer == author
+      where(user: author)
+    elsif viewer&.is_friends_with(author)
+      where(user: author)
+    else
+      where(user: author, private: false)
+    end
+  end
+
   def formatted_timestamp_primary
     time = time_ago_in_words(created_at) + " ago"
     last_edited ? time + " (Edited)" : time
