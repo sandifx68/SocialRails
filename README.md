@@ -1,27 +1,31 @@
 # README
 
-This is a social media clone built on Ruby on Rails. It will eventually be publicly accessible [here](social-rails-sandi.online).
+This is a social media clone built on Ruby on Rails. It is publicly accessible [here](social-rails-sandi.online). Video demo [here]().
 
 Development details:
  - pipeline with capybara tests and rubocop linting
  - designed with the bootstrap CSS framework
- - database handled with dockerized PostgreSQL
  - login of users handled with a session controller
- - image loading handled with local active storage (soon Amazong S3)
- - SOON: hosted with google sites and linked to personal domain
+ - turbo used for dynamic javascript updates
+ - population script with faker
+ - Dockerfile for production (and development to test production)
+ - database handled with dockerized PostgreSQL
+ - image loading handled with active storage and Cloudinary
+ - hosting done with Northflank free tier, linked with Namecheap domain
 
 Features:
  - User registration
  - Users can upload a profile photo, background image and change their bio
  - Posts can be uploaded and edited by users with up to 5 images per post with a description
+ - Posts are private by default
  - Posts have a preview that can be viewed by users before being saved
- - Comments can be written (and deleted) on posts by users that
+ - Some sample public posts already available
+ - Comments can be written (and deleted) on posts by users that posted them
  - Likes can be given to posts
- - SOON: users can add friends
+ - Users can add friends in order to see their posts
  - SOON: friends can message eachother
 
- Lessons learned:
- - better to start with I18n from the start
- - modals require a bit more understanding to work properly
-
- TODO: add video demonstration of each feature?
+Future work:
+- I18n for more consistency
+- more DRYing up, and slightly better code organization
+- more tests

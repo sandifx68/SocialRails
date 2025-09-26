@@ -36,7 +36,8 @@
         <div class="d-flex justify-content-around align-items-center border-top pt-1">
             <%= render "posts/like_button", post: post %>
             <div class="flex-fill text-center">
-                <%= link_to post_path(post, anchor: "comment-form"), id: "post-comment-link", class: "btn btn-light w-100" do %>
+                <%= link_to post_path(post, anchor: "comment-form"), id: "post-comment-link", 
+                    class: "btn btn-light w-100 #{'disabled' if current_user.nil?}", aria_disabled: current_user.nil? do %>
                     Comment (<%=post.comments.count%>)
                 <% end %>
             </div>

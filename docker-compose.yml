@@ -5,11 +5,33 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: social_rails_development
+      POSTGRES_DB: social_rails_production
     ports:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+  
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rails server -b 0.0.0.0 -p 3000
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      # PG_RAILS_ENV: production
+      # PG_HOST: db
+      # PG_PORT: 5432
+      # PG_USERNAME: postgres
+      # PG_PASSWORD: your_password
+      # PG_DATABASE: social_rails_production
+      PG_URL: postgresql://postgres:your_password@db:5432/social_rails_production
+
+      # RAILS_MASTER_KEY: <your-master-key> 
 
 volumes:
   pg_data:

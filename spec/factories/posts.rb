@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :post do
     description { "This is a test post" }
+    private { false }
     association :user # Automatically creates a user if not given
     after(:build) do |post|
       post.images.attach(

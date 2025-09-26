@@ -4,6 +4,10 @@
         <% @posts.each do |post| %>
             <%= render "posts/post", post: post %>
         <% end %>
+
+        <div class="pagination justify-content-center mt-3">
+            <%= paginate @posts %>
+        </div>
     </div>
     <div style="width: 30%;"> <%= render "messages/message_list" %> </div>
 </div>
