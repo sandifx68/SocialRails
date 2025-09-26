@@ -2,16 +2,16 @@
     <% if current_user && (friends = current_user.friends).any? %>
         <ul class="list-group">
             <% friends.each do |friend| %>
-                <%= link_to user_path(friend), class: "d-block" do %>
-                    <li class="list-group-item">
+                <li class="list-group-item">
+                    <%# <%= link_to user_path(friend), class: "w-100" do %> 
                         <%= render partial: "users/user_banner", locals: { 
                             user: friend, 
                             secondary_text: "Hey!", 
-                            friendship_button: false,
-                            tertiary_text: "10:37" 
+                            right_partial: "messages/last_message_time",
+                            right_partial_params: {last_message_time: "10:37"}
                         } %> 
-                    </li>
-                <% end %>
+                    <%# <% end %>
+                </li>
             <% end %>
         </ul>
     <% else %>

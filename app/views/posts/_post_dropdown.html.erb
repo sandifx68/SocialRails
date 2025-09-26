@@ -1,0 +1,13 @@
+<div class="dropdown ms-auto me-2">
+    <button class="btn btn-light p-1" type="button" id="dropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+        ...
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownButton">
+        <li><%= link_to "View Profile", user_path(post.user_id), class: "dropdown-item" %></li>
+        <li><%= render "users/user_friendship", user: post.user, cls: "dropdown-item" %></li>  
+        <% if current_user?(post.user) %>
+            <li><%= link_to "Edit post", edit_post_path(post), class: "dropdown-item" %></li>
+            <li><%= link_to "Delete post", destroy_confirmation_post_path(post), data: {turbo_frame: "modal"}, class: "dropdown-item text-danger" %></li>
+        <% end %>
+    </ul>
+</div>

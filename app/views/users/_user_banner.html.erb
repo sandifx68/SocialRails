@@ -1,24 +1,23 @@
-<%# Given: user and optionally friendship_button and secondary_text  %>
-<% friendship_button = true if local_assigns[:friendship_button].nil? %>
-<% secondary_text = "@#{user.user_id}" if local_assigns[:secondary_text].nil? %>
-<% tertiary_text = "" if local_assigns[:tertiary_text].nil? %>
+<%# Given:
+    user: user to be displayed
+    secondary_text: text to be displayed below user display name
+    secondary_text_hover: (optional) text to appear when hovered over secondary text
+    right_partial: partial to be rendered to the right
+    right_partial_params: params for the right partial
+%>
+<% secondary_text_hover = "" if local_assigns[:secondary_text_hover].nil? %>
 <div class="d-flex align-items-center">
     <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
                 
-    <div style="width:100%;">
-        <div class="d-flex">
-            <%= link_to user.display_name, user_path(user), class: "ms-2 display_name_editable" %>
-            <div class="ms-auto text-secondary me-2"><small><%= tertiary_text %></small></div>
-        </div>
+    <div class="flex-grow-1">
+        <%= link_to user.display_name, user_path(user), class: "ms-2 display_name_editable" %>
 
-        <div class="ms-2 text-secondary fs-7" >
-            <small><%= secondary_text %></small>
+        <div class="ms-2 text-secondary fs-7 small" title="<%=secondary_text_hover%>" >
+            <%= secondary_text %>
         </div>
     </div>
 
-    <% if friendship_button %>
-        <div class="ms-auto me-2">
-            <%= render "users/user_friendship", user: user %>
-        </div>
-    <% end %>
+    <div class="ms-auto me-2 align-self-stretch">
+        <%= render right_partial, right_partial_params %>
+    </div>
 </div>
