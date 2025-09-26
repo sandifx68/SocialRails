@@ -1,7 +1,7 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
-@import "posts";
-@import "users"; 
+@use 'bootstrap/scss/bootstrap';
+@use 'bootstrap-icons/font/bootstrap-icons';
+@use "posts";
+@use "users"; 
 
 .alert {
     margin-bottom: 0; /* Remove default bottom margin */
