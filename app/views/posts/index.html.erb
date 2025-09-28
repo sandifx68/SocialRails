@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-between">
-    <div style="width: 30%;"> <%= render "friends/friends_list" %> </div>
-    <div class = "scrollable-post-list" style="width: 40%;">
+<div class="d-flex justify-content-between h-100 overflow-hidden">
+    <div style="width: 30%; height: 100%;"> <%= render "friends/friends_list" %> </div>
+    <div class = "scrollable-post-list h-100 overflow-auto" style="width: 40%;">
         <% @posts.each do |post| %>
             <%= render "posts/post", post: post %>
         <% end %>
@@ -9,6 +9,6 @@
             <%= paginate @posts %>
         </div>
     </div>
-    <div style="width: 30%;"> <%= render "messages/message_list" %> </div>
+    <div style="width: 30%; height: 100%;"> <%= render "messages/message_list" %> </div>
 </div>
 

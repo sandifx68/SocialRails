@@ -1,5 +1,5 @@
-<div style="height: 90vh">
-    <% if current_user && (friends = current_user.friends).any? %>
+<% if current_user && (friends = current_user.friends).any? %>
+    <div class="h-100">
         <ul class="list-group" id="message_list">
             <% friends.each do |friend| %>
                 <li class="list-group-item" id=<%="#{friend.user_id}-chat"%>>
@@ -14,9 +14,9 @@
                 </li>
             <% end %>
         </ul>
-    <% else %>
-        <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
-            Login to see your messages!
-        </div>
-    <% end %>
-</div>
+    </div>
+<% else %>
+    <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
+        Login to see your messages!
+    </div>
+<% end %>
