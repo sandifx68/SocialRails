@@ -12,3 +12,6 @@ application.register("modals", ModalsController)
 
 import PreviewsController from "./previews_controller"
 application.register("previews", PreviewsController)
+
+import TimezoneController from "./timezone_controller"
+application.register("timezone", TimezoneController)

@@ -78,20 +78,6 @@
     <%= turbo_frame_tag "modal" %>
 
     <%= yield %>
-
-    <script>
-      (function() {
-        try {
-          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          if (tz) {
-            var encoded = encodeURIComponent(tz);
-            // Only write cookie if different to avoid churn
-            if (document.cookie.indexOf("tz=" + encoded) === -1) {
-              document.cookie = "tz=" + encoded + "; path=/; max-age=" + (60*60*24*365);
-            }
-          }
-        } catch (e) { /* no-op */ }
-      })();
-    </script>
+    <div data-controller="timezone"></div>
   </body>
 </html>
