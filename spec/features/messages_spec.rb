@@ -34,8 +34,7 @@ RSpec.feature "Messages feature", type: :feature do
     expect(page.find(:id, "#{friend_1.user_id}-chat")).to have_content(message_received)
     # Message 2 was not called, therefore friend_2 sent no messages
     expect(page.find(:id, "#{friend_2.user_id}-chat")).to have_content("Click to start a chat...")
-    expect(page.find(:id, "#{friend_2.user_id}-chat")).to have_content(message_sent)
-    expect(page.find(:id, "#{friend_2.user_id}-chat")).to have_content("You: #{message_sent}")
+    expect(page.find(:id, "#{friend_3.user_id}-chat")).to have_content("You: #{message_sent}")
   end
 
   scenario "messages are sorted well" do

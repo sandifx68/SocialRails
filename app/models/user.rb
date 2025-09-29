@@ -45,9 +45,19 @@ class User < ApplicationRecord
     end
   end
 
-
   def recent_posts(limit = 10)
     posts.order(created_at: :desc).limit(limit) # Fetches latest posts
+  end
+
+  def last_message_between(friend)
+    unless is_friends_with(friend)
+      raise "Cannot see last message unless you are friends with that other user."
+    end
+
+    Message.where(from: friend, to: self)
+      .or(Message.where(from: self, to: friend))
+      .order(created_at: :desc)
+      .first
   end
 
   def profile_photo_size

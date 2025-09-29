@@ -2,18 +2,26 @@
     user: user to be displayed
     secondary_text: text to be displayed below user display name
     secondary_text_hover: (optional) text to appear when hovered over secondary text
+    secondary_text_link: (optional) what to link to when secondary text is clicked
     right_partial: partial to be rendered to the right
     right_partial_params: params for the right partial
 %>
 <% secondary_text_hover = "" if local_assigns[:secondary_text_hover].nil? %>
+<% secondary_text_link = "" if local_assigns[:secondary_text_link].nil? %>
 <div class="d-flex align-items-center">
     <%= render "shared/profile_photo", user: user, profile_photo_class: "profile-photo-small" %>
                 
     <div class="flex-grow-1">
         <%= link_to user.display_name, user_path(user), class: "ms-2 display_name_editable" %>
 
-        <div class="ms-2 text-secondary fs-7 small" title="<%=secondary_text_hover%>" >
-            <%= secondary_text %>
+        <div class="ms-2 text-secondary small" title="<%=secondary_text_hover%>" >
+            <% if secondary_text_link.present? %>
+                <%= link_to secondary_text_link, class: "text-decoration-none text-secondary", data: { turbo_frame: "chat-frame" } do %>
+                    <%= secondary_text %>
+                <% end %>
+            <% else %>
+                <%= secondary_text %>
+            <% end %>
         </div>
     </div>
 

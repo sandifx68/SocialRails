@@ -34,7 +34,7 @@
             <% friend_requests.each do |friend_requester| %>
                 <li class="list-group-item">
                     <%= render partial: "users/user_banner", locals: { 
-                        user: other_user, 
+                        user: friend_requester, 
                         secondary_text: "@#{friend_requester.user_id}",
                         right_partial: "users/user_friendship",
                         right_partial_params: {user: friend_requester} } 

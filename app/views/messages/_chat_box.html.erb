@@ -1,0 +1,20 @@
+<turbo-frame id="chat-frame">
+    <div class="h-100 w-100 pb-2">
+        <div style="height: 10%" class="bg-danger w-100 d-flex justify-content-between px-3 py-2">
+            <%= friend.display_name %>
+            <%= link_to close_chat_path, data: { turbo_method: :post }, class: "btn btn-outline-dark py-0 px-2" do %>
+                <i class="bi bi-x"></i> 
+            <% end %>
+        </div>
+        <div style="height: 80%" class="p-4">
+            Conversation list
+        </div>
+        <div class="input-group">
+            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Type your message..." %>
+            <button class="btn btn-outline-primary" id="send-message-button" type="submit">
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </div>  
+    </div>
+</turbo-frame>
+    

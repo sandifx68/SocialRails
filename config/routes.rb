@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   end
   get "search_users", to: "users#search"
 
+  get "show_chat/:friend_id", to: "messages#show_chat", as: :show_chat
+  post "close_chat", to: "messages#close_chat", as: :close_chat
+
 
   root "posts#index"
   get "posts", to: "posts#index"

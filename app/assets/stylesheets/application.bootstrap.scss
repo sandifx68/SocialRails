@@ -31,4 +31,12 @@ border-radius: 50%
   text-decoration: underline;
 }
 
+/* Chat frame sizing: hidden when empty; 50% height when populated */
+turbo-frame#chat-frame:empty {
+  display: none;
+}
+turbo-frame#chat-frame:not(:empty) {
+  height: 50%;
+}
+
 
