@@ -76,6 +76,10 @@ class User < ApplicationRecord
   end
 
   def last_message_between(friend)
+    messages_between(friend).first
+  end
+
+  def messages_between(friend)
     unless is_friends_with(friend)
       raise "Cannot see last message unless you are friends with that other user."
     end
@@ -83,13 +87,23 @@ class User < ApplicationRecord
     Message.where(from: friend, to: self)
       .or(Message.where(from: self, to: friend))
       .order(created_at: :desc)
-      .first
   end
 
   def profile_photo_size
     if profile_photo.attached? && profile_photo.blob.byte_size > 5.megabytes
       profile_photo.purge # remove the upload immediately
       errors.add(:profile_photo, "Uploaded image is too large (max 5MB)")
+    end
+  end
+
+  # Yields each chat group with label and messages for a given friend.
+  def each_chat_group_with(friend, now: Time.zone.now)
+    scope = messages_between(friend)
+    grouped = scope.sort_by(&:created_at).group_by { |m| m.chat_group_key(now: now) }
+    grouped.keys.each do |key|
+      messages = grouped[key]
+      label = messages.first.chat_group_label
+      yield(label, messages)
     end
   end
 end

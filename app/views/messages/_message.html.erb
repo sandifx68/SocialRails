@@ -1,0 +1,7 @@
+<% sender_dependent_style = message.from == current_user ? "bg-light" : "bg-danger bg-opacity-75 ms-auto"%>
+<div id="message-row-<%=message.id%>" class="w-100 mb-3 d-flex">
+    <div class="rounded-3 mx-2 p-2 fs-6 d-inline-block <%= sender_dependent_style %>" style="max-width: 75%;">
+        <span><%= message.text %></span>
+        <small class="ms-auto"><%= message.just_time_formatted %></small>
+    </div>
+</div>

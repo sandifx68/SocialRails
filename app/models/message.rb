@@ -29,11 +29,45 @@ class Message < ApplicationRecord
     end
   end
 
+  def just_time_formatted
+    t = created_at.in_time_zone
+    t.strftime("%H:%M")
+  end
+
   def formatted_text(current_user)
     if self.from == current_user
       "You: #{self.text}"
     else
       self.text
+    end
+  end
+
+  # Helpers to group messages for chat transcript headers
+  # Groups: :today, :yesterday, :weekday (last 7 days), :date (older)
+  def chat_group_key(now: Time.zone.now)
+    tz_now = now.in_time_zone
+    date = created_at.in_time_zone.to_date
+    today = tz_now.to_date
+
+    if date == today
+      [ :today, date ]
+    elsif date == today - 1
+      [ :yesterday, date ]
+    elsif date >= today - 6 && date <= today - 2
+      [ :weekday, date ]
+    else
+      [ :date, date ]
+    end
+  end
+
+  def chat_group_label(now: Time.zone.now)
+    type, _date = chat_group_key(now: now)
+    t = created_at.in_time_zone
+    case type
+    when :today      then "Today"
+    when :yesterday  then "Yesterday"
+    when :weekday    then t.strftime("%A")
+    else                   t.strftime("%d-%m-%Y")
     end
   end
 end
