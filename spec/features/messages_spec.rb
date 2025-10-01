@@ -46,7 +46,7 @@ RSpec.feature "Messages feature", type: :feature do
 
     first_time = Time.parse(messages_times[0])
     second_time = Time.parse(messages_times[1])
-    expect(first_time).to be < second_time
+    expect(first_time).to be > second_time
   end
 
   scenario "messages are reciprocal" do

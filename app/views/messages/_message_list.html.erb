@@ -1,4 +1,4 @@
-<% if current_user && (friends = current_user.friends).any? %>
+<% if current_user && (friends = current_user.friends_ordered_by_messages).any? %>
     <div class="h-100 d-flex flex-column justify-content-between">
         <ul class="list-group" id="message_list">
             <% friends.each do |friend| %>

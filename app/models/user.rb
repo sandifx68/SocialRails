@@ -27,6 +27,32 @@ class User < ApplicationRecord
     SQL
   end
 
+  def friends_ordered_by_messages
+    User.find_by_sql([
+      <<-SQL, id, id, id, id, id
+        WITH
+          friends AS ( -- Friends of the user
+            SELECT users.* FROM friendships f
+            JOIN users ON (
+              (f.user_id = ? AND f.friend_id = users.id) OR
+              (f.friend_id = ? AND f.user_id = users.id) )
+            WHERE f.accepted = TRUE
+          ),
+          conv AS ( -- Last message with each other user
+            SELECT
+              CASE WHEN m.from_id = ? THEN m.to_id ELSE m.from_id END AS other_user_id,
+              MAX(m.created_at) AS last_message_at
+              FROM messages m
+              WHERE m.from_id = ? OR m.to_id = ?
+              GROUP BY other_user_id
+          )
+        SELECT friends.*
+          FROM friends LEFT JOIN conv ON conv.other_user_id = friends.id
+          ORDER BY conv.last_message_at DESC NULLS LAST, friends.display_name ASC
+      SQL
+    ])
+  end
+
   def is_friends_with(user)
     self.friends.include?(user)
   end
