@@ -14,13 +14,13 @@
     <div class="flex-grow-1">
         <%= link_to user.display_name, user_path(user), class: "ms-2 display_name_editable" %>
 
-        <div class="ms-2 text-secondary small" title="<%=secondary_text_hover%>" >
+        <div class="ms-2 small" title="<%=secondary_text_hover%>" >
             <% if secondary_text_link.present? %>
                 <%= link_to secondary_text_link, class: "text-decoration-none text-secondary", data: { turbo_frame: "chat-frame" } do %>
                     <%= secondary_text %>
                 <% end %>
             <% else %>
-                <%= secondary_text %>
+                <span class="text-secondary"><%= secondary_text %></span>
             <% end %>
         </div>
     </div>

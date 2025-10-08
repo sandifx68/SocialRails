@@ -60,30 +60,26 @@ RSpec.feature "Messages feature", type: :feature do
   end
 
   scenario "sent messages appear in real time", js: true do
+    message_text = "Hi!"
     log_in_as(user)
-    expect(page.find(:id, "chat-box")).not_to be_present
+    expect(page).to have_no_selector(:id, "chat-frame")
     friend_1_messages = page.find(:id, "#{friend_1.user_id}-chat")
-    friend_1_messages.find(:css, "text-secondary").click
-    expect(page.find(:id, "chat-box")).to have_content(friend_1.display_name)
-    page.find(:id, "chat-box-input").set "Hi!"
+    friend_1_messages.find(:css, ".text-secondary").click
+    expect(page.find(:id, "chat-frame")).to have_content(friend_1.display_name)
+    page.find(:id, "chat-box-input").set message_text
     page.find(:id, "chat-box-send").click
 
-    expect(page.find(:id, "chat-box-chat")).to have_content("Hi!")
+    expect(page.find(:id, "chat-box-conversation")).to have_content(message_text)
+    expect(friend_1_messages).to have_content(message_text)
   end
 
-  scenario "received messages appear in the list in real time", js: true do
+  scenario "received messages appear in real time", js: true do
     log_in_as(user)
     friend_1_messages = page.find(:id, "#{friend_1.user_id}-chat")
-    expect(friend_1_messages).not_to have_content(:id, "new-message")
+    friend_1_messages.find(:css, ".text-secondary").click
     message_1
-    expect(friend_1_messages).to have_content(:id, "new-message")
-  end
 
-  scenario "received messages appear in the chat in real time", js: true do
-    log_in_as(user)
-    friend_1_messages = page.find(:id, "#{friend_1.user_id}-chat")
-    friend_1_messages.find(:css, "text-secondary").click
-    message_1
-    expect(page.find(:id, "chat-box")).to have_content(message_1.text)
+    expect(page.find(:id, "chat-box-conversation")).to have_content(message_1.text)
+    expect(friend_1_messages).to have_content(message_1.text)
   end
 end

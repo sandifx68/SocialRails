@@ -7,6 +7,14 @@ class Message < ApplicationRecord
   # Provide an application-level default; DB enforces NOT NULL
   attribute :seen, :boolean, default: false
 
+  validate :between_friends
+
+  def between_friends
+    unless from.is_friends_with(to)
+      errors.add("Messages can only be sent between friends.")
+    end
+  end
+
   # Returns a human-friendly timestamp based on recency:
   # - Today: 24h time (HH:MM)
   # - Yesterday: "Yesterday"
