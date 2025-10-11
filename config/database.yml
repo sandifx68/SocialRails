@@ -12,7 +12,7 @@ sqlite: &sqlite
   timeout: 5000
 
 development:
-  primary:
+  primary: &primary_development
     <<: *default
     database: <%= ENV['PG_DATABASE'] || "social_rails_development" %>
     username: <%= ENV['PG_USERNAME'] || "postgres" %>
@@ -20,19 +20,18 @@ development:
     host: <%= ENV["PG_HOST"] || "localhost" %>
     port: <%= ENV["PG_PORT"] || 5432 %>
   cable:
-    <<: *sqlite
-    database: storage/social_rails_development_cable.sqlite3
-    migrations_paths: db/cable_migrate
+    <<: *primary_development
 
 test:
-  <<: *default
-  database: social_rails_test
+  primary: &primary_test
+    <<: *default
+    database: social_rails_test
+  cable:
+    <<: *primary_test
 
 production:
-  <<: *default
-  url: <%= ENV['PG_URL'] %>
-  # database: <%= ENV['PG_DATABASE'] || "social_rails_production" %>
-  # username: <%= ENV['PG_USERNAME'] %>
-  # password: <%= ENV['PG_PASSWORD'] %>
-  # host: <%= ENV["PG_HOST"] %>
-  # port: <%= ENV["PG_PORT"] %>
+  primary: &primary_production
+    <<: *default
+    url: <%= ENV['PG_URL'] %>
+  cable:
+    <<: *primary_production
