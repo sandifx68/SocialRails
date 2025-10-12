@@ -21,48 +21,45 @@ class UsersController < ApplicationController
   end
 
   def search
-    page = params[:page] || 1
+    friends_page = params[:friends_page] || 1
+    requests_page = params[:requests_page] || 1
+    others_page = params[:others_page] || 1
+
+    query = params[:query].to_s.strip
 
     if current_user.present?
-      if params[:query].present?
-        @friends = current_user.friends(params[:query])
-        @friend_requests = current_user.friend_requests_received(params[:query])
-        @users = User.where("user_id ILIKE ?", "%#{params[:query]}%") - @friends - @friend_requests
-      else
-        @friends = current_user.friends
-        @friend_requests = current_user.friend_requests_received
-        @users = User.all - [ current_user ]
-      end
+      friends = query.present? ? current_user.friends(query) : current_user.friends
+      friend_requests = current_user.friend_requests_received(query)
+      other_users = current_user.other_users(query)
+
+      paginated_friends = Kaminari.paginate_array(friends).page(friends_page).per(5)
+      paginated_requests = Kaminari.paginate_array(friend_requests).page(requests_page).per(5)
+      paginated_others = other_users.page(others_page).per(5)
     else
-      @friends = []
-      @friend_requests = []
-      @users = if params[:query].present?
-        User.where("user_id ILIKE ?", "%#{params[:query]}%")
-      else
-        User.all
-      end
+      scope = User.all
+      scope = scope.where("user_id ILIKE ?", "%#{query}%") if query.present?
+      paginated_friends = Kaminari.paginate_array([]).page(1).per(5)
+      paginated_requests = Kaminari.paginate_array([]).page(1).per(5)
+      paginated_others = scope.page(others_page).per(5)
     end
 
-    @paginated_users = Kaminari.paginate_array(@users).page(page).per(5)
-    @paginated_friends = Kaminari.paginate_array(@friends).page(page).per(5)
-
     respond_to do |format|
-      format.turbo_stream {
-        render partial: "users/search_results",
-               locals: {
-                 users: @paginated_users,
-                 friends: @paginated_friends,
-                 friend_requests: @friend_requests
-               }
-      }
-      format.html {
-        render partial: "users/search_results",
-               locals: {
-                 users: @paginated_users,
-                 friends: @paginated_friends,
-                 friend_requests: @friend_requests
-               }
-      }
+      format.turbo_stream do
+        render partial: "users/search_results", locals: {
+          friends: paginated_friends,
+          friend_requests: paginated_requests,
+          other_users: paginated_others,
+          query: query
+        }
+      end
+      format.html do
+        render partial: "users/search_results", locals: {
+          friends: paginated_friends,
+          friend_requests: paginated_requests,
+          other_users: paginated_others,
+          query: query
+        }
+      end
     end
   end
 
@@ -105,7 +102,6 @@ class UsersController < ApplicationController
     validate_and_update_image(:profile_photo, "Profile photo updated!", "Edit Profile Photo", update_photo_user_path(@user))
   end
 
-
   def edit_background_image
     @user = User.find(params[:id])
     render_partial("Edit Background Image", :background_image, update_background_image_user_path(@user), "photo")
@@ -137,13 +133,12 @@ class UsersController < ApplicationController
     end
 
     if params[:user].present? && params[:user][field].present?
-      # use hash
       if @user.update(field => params[:user][field])
         redirect_to user_path(@user), notice: notice
       else
         render_partial(modal_title, field, update_path, "photo")
       end
-    else # No file submitted
+    else
       @user.errors.add(field, "must be selected before uploading")
       render_partial(modal_title, field, update_path, "photo")
     end

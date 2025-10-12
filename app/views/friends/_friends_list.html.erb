@@ -10,9 +10,10 @@
             <% end %>
 
         <%= render partial: "users/search_results", locals: { 
-            other_users: @users || Kaminari.paginate_array(User.all - [ current_user ].compact).page(1).per(5), 
-            friends: @friends || Kaminari.paginate_array(current_user&.friends || []).page(1).per(5),
-            friend_requests: @friend_requests || current_user&.friend_requests_received || []
+            other_users: @paginated_other_users || Kaminari.paginate_array(current_user&.other_users || User.all).page(1).per(5),
+            friends: @paginated_friends || Kaminari.paginate_array(current_user&.friends || []).page(1).per(5),
+            friend_requests: @paginated_friend_requests || Kaminari.paginate_array(current_user&.friend_requests_received || []).page(1).per(5),
+            query: params[:query].to_s
         } %>
     </div>
 </div>

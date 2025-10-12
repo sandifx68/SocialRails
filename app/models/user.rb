@@ -27,6 +27,16 @@ class User < ApplicationRecord
     SQL
   end
 
+  def other_users(user_id_filter = "")
+    # Exclude self, friends, and pending friend request senders
+    exclude_ids = ([ id ] + friends.map(&:id) + friend_requests_received.map(&:id)).uniq
+    scope = User.where.not(id: exclude_ids)
+    if user_id_filter.present?
+      scope = scope.where("user_id ILIKE ?", "%#{user_id_filter}%")
+    end
+    scope
+  end
+
   def friends_ordered_by_messages
     User.find_by_sql([
       <<-SQL, id, id, id, id, id
@@ -64,11 +74,11 @@ class User < ApplicationRecord
   end
 
   def friend_requests_received(user_id_filter = "")
-    Friendship.where(accepted: false).where("friend_id = ?", id).map do |f|
-      if f.user.user_id.downcase.include? user_id_filter.downcase
+    Friendship.where(accepted: false).where("friend_id = ?", id).map { |f|
+      if f.user.user_id.downcase.include?(user_id_filter.downcase)
         f.user
       end
-    end
+    }.compact
   end
 
   def recent_posts(limit = 10)
