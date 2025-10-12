@@ -1,33 +1,14 @@
 <div class = "card mb-3">
     <div class = "card-body">
-        <!-- Post header -->
-        <div class="d-flex align-items-center mb-3">
-            <%= render "shared/profile_photo", user: post.user, profile_photo_class: "profile-photo-small" %>
-            
-            <div>
-                <div class="ms-2 username"><%= post.user.display_name%></div>
-                <div class="ms-2 text-secondary fs-7" 
-                    <% if post.created_at != post.updated_at %>
-                        title="<%= post.formatted_timestamp_hover %>"
-                    <% end %> >
-                    <small><%= post.formatted_timestamp_primary %></small>
-                </div>
-            </div>
 
-            <div class="dropdown ms-auto me-2">
-                <button class="btn btn-light p-1" type="button" id="dropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    ...
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownButton">
-                    <li><%= link_to "View Profile", user_path(post.user_id), class: "dropdown-item" %></li>
-                    <li><%= render "users/user_friendship", user: post.user, cls: "dropdown-item" %></li>  
-                    <% if current_user?(post.user) %>
-                        <li><%= link_to "Edit post", edit_post_path(post), class: "dropdown-item" %></li>
-                        <li><%= link_to "Delete post", destroy_confirmation_post_path(post), data: {turbo_frame: "modal"}, class: "dropdown-item text-danger" %></li>
-                    <% end %>
-                </ul>
-            </div>
-        </div>
+        <%= render partial: 'users/user_banner', locals: {
+                user: post.user,
+                secondary_text: post.formatted_timestamp_primary,
+                secondary_text_hover: post.formatted_timestamp_hover,
+                right_partial: "posts/post_dropdown",
+                right_partial_params: {post: post}
+            }
+        %>
 
         <%= render "posts/post_image_carousel", post: post %>
 

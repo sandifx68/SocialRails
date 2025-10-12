@@ -1,0 +1,30 @@
+<turbo-frame id="chat-frame">
+    <div class="h-100 w-100 bg-danger-subtle d-flex flex-column">
+        <div style="height: 50px" class="bg-danger fs-5 w-100 d-flex justify-content-between px-3 py-2 rounded-top">
+            <%= friend.display_name %>
+            <%= link_to close_chat_path, data: { turbo_method: :post }, class: "btn py-0 px-2" do %>
+                <i class="bi bi-x h3"></i> 
+            <% end %>
+        </div>
+
+        <div id="chat-box-conversation" class="flex-grow-1 p-4 overflow-auto" data-controller="chat-scroll">
+            <% current_user.each_chat_group_with(friend) do |label, messages| %>
+                <div class="text-center text-secondary small my-2"><%= label %></div>
+                <% messages.each do |message| %>
+                    <%= render partial: "messages/message", locals: { message: message } %>
+                <% end %>
+            <% end %>
+        </div>
+
+        <%= form_with url: send_message_path, method: :post, local: false, data: { turbo_frame: "chat-frame" } do %>
+            <div style="height: 60px" class="input-group">
+                <%= hidden_field_tag :to_user_id, friend.id %>
+                <%= text_field_tag :text, "", class: "form-control", placeholder: "Type your message...", autocomplete: "off", id: "chat-box-input" %>
+                <button class="btn btn-outline-primary" id="chat-box-send" type="submit">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </div>  
+        <% end %>
+    </div>
+</turbo-frame>
+    

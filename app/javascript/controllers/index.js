@@ -12,3 +12,9 @@ application.register("modals", ModalsController)
 
 import PreviewsController from "./previews_controller"
 application.register("previews", PreviewsController)
+
+import TimezoneController from "./timezone_controller"
+application.register("timezone", TimezoneController)
+
+import ChatScrollController from "./chat_scroll_controller"
+application.register("chat-scroll", ChatScrollController)

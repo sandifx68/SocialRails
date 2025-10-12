@@ -3,17 +3,27 @@
         <ul class="list-group">
             <% friends.each do |friend| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: friend } %> 
+                    <%= render partial: "users/user_banner", locals: { 
+                        user: friend, 
+                        secondary_text: "@#{friend.user_id}",
+                        right_partial: "users/user_friendship",
+                        right_partial_params: {user: friend} }
+                    %> 
                 </li>
             <% end %>
         </ul>
     <% end %>
-    <% if users.any? %>
+    <% if other_users.any? %>
         <div class="mt-2 mb-2">Other users:</div>
         <ul class="list-group">
-            <% users.each do |user| %>
+            <% other_users.each do |other_user| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: user } %> 
+                    <%= render partial: "users/user_banner", locals: { 
+                        user: other_user, 
+                        secondary_text: "@#{other_user.user_id}",
+                        right_partial: "users/user_friendship",
+                        right_partial_params: {user: other_user} } 
+                    %> 
                 </li>
             <% end %>
         </ul>
@@ -21,20 +31,25 @@
     <% if friend_requests.any? %>
         <div class="mt-2 mb-2">Friend requests:</div>
         <ul class="list-group">
-            <% friend_requests.each do |user| %>
+            <% friend_requests.each do |friend_requester| %>
                 <li class="list-group-item">
-                    <%= render partial: "users/user_banner", locals: { user: user } %> 
+                    <%= render partial: "users/user_banner", locals: { 
+                        user: friend_requester, 
+                        secondary_text: "@#{friend_requester.user_id}",
+                        right_partial: "users/user_friendship",
+                        right_partial_params: {user: friend_requester} } 
+                    %> 
                 </li>
             <% end %>
         </ul>
     <% end %>
-    <% if users.none? && friends.none? && friend_requests.none?%>
+    <% if other_users.none? && friends.none? && friend_requests.none?%>
         <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
             No users found.
         </div>
     <% end %>
 
-    <% if users.respond_to?(:current_page) && users.next_page.present? %>
+    <% if other_users.respond_to?(:current_page) && other_users.next_page.present? %>
         <div class="d-flex justify-content-center mt-3">
             <%= link_to "Load more",
                         search_users_path(query: params[:query], page: users.next_page),

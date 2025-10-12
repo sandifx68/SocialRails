@@ -46,7 +46,7 @@ RSpec.describe "User show", type: :feature do
     log_in_as(user)
     visit user_path(user)
 
-    click_link(user.display_name)
+    click_link user.display_name, match: :first
     fill_in "user_display_name", with: "new_user_name"
     click_button "Save"
     expect(page).to have_content "new_user_name"
