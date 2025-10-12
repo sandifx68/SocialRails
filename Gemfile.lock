@@ -359,11 +359,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    solid_cable (3.0.12)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -452,7 +447,6 @@ DEPENDENCIES
   rspec-rails (~> 7.1)
   rubocop-rails-omakase
   selenium-webdriver
-  solid_cable
   sqlite3 (>= 2.1)
   stimulus-rails
   thruster
