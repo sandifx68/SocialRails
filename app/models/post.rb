@@ -42,7 +42,8 @@ class Post < ApplicationRecord
   end
 
   def formatted_timestamp_hover
-    "Last modified: " + time_ago_in_words(updated_at) + " ago"
+    time = time_ago_in_words(updated_at) + " ago"
+    last_edited ? "Last modified: " + time : "Posted " + time
   end
 
   private
