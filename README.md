@@ -23,7 +23,8 @@ Features:
  - Comments can be written (and deleted) on posts by users that posted them
  - Likes can be given to posts
  - Users can add friends in order to see their posts
- - SOON: friends can message eachother
+ - friends can message each other (requires refresh on the receiver side)
+ - SOON: long polling for real time updates
 
 Future work:
 - I18n for more consistency
