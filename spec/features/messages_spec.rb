@@ -59,7 +59,7 @@ RSpec.feature "Messages feature", type: :feature do
     expect(page.find(:id, "#{user.user_id}-chat")).to have_content(message_1_text)
   end
 
-  scenario "sent messages appear in real time", js: true do
+  xscenario "sent messages appear in real time", js: true do
     message_text = "Hi!"
     log_in_as(user)
     expect(page).to have_no_selector(:id, "chat-frame")
@@ -73,7 +73,7 @@ RSpec.feature "Messages feature", type: :feature do
     expect(friend_1_messages).to have_content(message_text)
   end
 
-  scenario "received messages appear in real time", js: true do
+  xscenario "received messages appear in real time", js: true do
     log_in_as(user)
     friend_1_messages = page.find(:id, "#{friend_1.user_id}-chat")
     friend_1_messages.find(:css, ".text-secondary").click

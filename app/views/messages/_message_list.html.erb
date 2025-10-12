@@ -1,21 +1,27 @@
-<% if current_user && (friends = current_user.friends_ordered_by_messages).any? %>
-    <div class="h-100 d-flex flex-column justify-content-between">
-        <ul class="list-group" id="message_list">
-            <% friends.each do |friend| %>
-                <li class="list-group-item" id=<%="#{friend.user_id}-chat"%>>
-                    <% last_message = current_user.last_message_between(friend) %>
-                    <%= render partial: "users/user_banner", locals: { 
-                        user: friend, 
-                        secondary_text: last_message&.formatted_text(current_user) || "Click to start a chat...",
-                        secondary_text_link: show_chat_path(friend_id: friend.id),
-                        right_partial: "messages/last_message_time",
-                        right_partial_params: {last_message_time: last_message&.formatted_time || ""}
-                    } %> 
-                </li>
-            <% end %>
-        </ul>
-        <turbo-frame id="chat-frame"></turbo-frame>
-    </div>
+<% if current_user %>
+    <% if (friends = current_user.friends_ordered_by_messages).any? %>
+        <div class="h-100 d-flex flex-column justify-content-between">
+            <ul class="list-group" id="message_list">
+                <% friends.each do |friend| %>
+                    <li class="list-group-item" id=<%="#{friend.user_id}-chat"%>>
+                        <% last_message = current_user.last_message_between(friend) %>
+                        <%= render partial: "users/user_banner", locals: { 
+                            user: friend, 
+                            secondary_text: last_message&.formatted_text(current_user) || "Click to start a chat...",
+                            secondary_text_link: show_chat_path(friend_id: friend.id),
+                            right_partial: "messages/last_message_time",
+                            right_partial_params: {last_message_time: last_message&.formatted_time || ""}
+                        } %> 
+                    </li>
+                <% end %>
+            </ul>
+            <turbo-frame id="chat-frame"></turbo-frame>
+        </div>
+    <% else %>
+        <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
+            Add a friend in order to see messages!
+        </div>
+    <% end %>
 <% else %>
     <div class="h-100 text-secondary d-flex justify-content-center align-items-center">
         Login to see your messages!

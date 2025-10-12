@@ -11,7 +11,7 @@ class Message < ApplicationRecord
 
   def between_friends
     unless from.is_friends_with(to)
-      errors.add("Messages can only be sent between friends.")
+      errors.add(:base, "Messages can only be sent between friends.")
     end
   end
 

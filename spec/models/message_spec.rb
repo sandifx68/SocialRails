@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Message, type: :model do
   describe '#formatted_time' do
-    let(:sender) { create(:user) }
-    let(:receiver) { create(:user) }
+    let!(:sender) { create(:user) }
+    let!(:receiver) { create(:user) }
+    let!(:friendship) { create(:friendship, user: sender, friend: receiver) }
 
     it 'returns HH:MM for messages created today' do
       now = Time.zone.parse('2025-09-29 14:07')
