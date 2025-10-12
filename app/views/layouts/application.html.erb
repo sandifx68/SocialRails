@@ -41,7 +41,7 @@
       <%# Login/Logout buttons %>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <% if session[:user_id] %>
+          <% if current_user %>
             <li class="nav-item d-flex align-items-center me-3">
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle bg-light text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
