@@ -1,5 +1,5 @@
 # This is a social media clone built on Ruby on Rails. 
-## It is publicly accessible [here](https://social-rails-sandi.online/). 
+## It was publicly accessible [here](https://social-rails-sandi.online/). However, the domain subscription got too expensive, so it is no longer available. 
 ## Video demo [here](https://youtu.be/blunVrgT-Zk).
 
 Development details:
